@@ -1,0 +1,39 @@
+<%= form_with model: task do |f| %>
+    <% if task.errors.any? %>
+    <div id="errors">
+        <h2><%= pluralize(task.errors.count, "error") %> prohibited this project from being saved:</h2>
+        <ul>
+            <% task.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
+    <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </div>
+    <div class="field">
+        <%= f.label :create_time %>
+        <%= f.date_field :create_time %>
+    </div>
+    <div class="field">
+        <%= f.label :end_time %>
+        <%= f.date_field :end_time %>
+    </div>
+    <div class="field">
+        <%= f.label :status %>
+        <%= f.select :status, ["Pending", "In Progress", "Completed"], {} %>
+    </div>
+    <div class="field">
+        <%= f.label :priority %>
+        <%= f.select :priority, ["High", "Medium", "Low"], {} %>
+    </div>
+    <div class="field">
+        <%= f.label :tag %>
+        <%= f.text_field :tag %>
+    </div>
+    <div class="submit">
+        <%= f.submit %>
+    </div>
+<% end %>

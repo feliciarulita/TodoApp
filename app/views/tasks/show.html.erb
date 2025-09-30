@@ -1,0 +1,13 @@
+<h1><%= @task.name %></h1>
+
+<p>Project detail:</p>
+<p>
+    Created at: <%= @task.create_time %><br>
+    End time: <%= @task.end_time %><br>
+    Status: <%= @task.status %><br>
+    Priority: <%= @task.priority %><br>
+    Tag: <%= @task.tag %><br>
+</p>
+<button><%= link_to "Edit", edit_task_path(@task) %></button>
+<button><%= link_to "Back", root_path %></button>
+<%= button_to "Delete task", task_path(@task), method: :delete%>
