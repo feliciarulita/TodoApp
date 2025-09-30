@@ -23,3 +23,22 @@ Things you may want to cover:
 
 * ...
 
+## Table Schema
+
+User : {
+    userID (Primary Key),
+    name : string,
+    password : string,
+    manager : boolean
+}
+
+Task : {
+    taskID (Primary Key),
+    name : string,
+    createTime : datetime,
+    endTime : datetime,
+    status : [Pending, In Progress, Completed],
+    priority : [High, Medium, Low],
+    tag : string,
+    userID (Foreign Key reference to User.userID)
+}
