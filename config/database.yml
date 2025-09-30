@@ -11,7 +11,7 @@ default: &default
   username: <%= ENV.fetch("PGUSER", "postgres") %>
   password: <%= ENV.fetch("PGPASSWORD", "") %>
   host: localhost
-  port: 5433
+  port: 5432
   timeout: 5000
 
 development:
