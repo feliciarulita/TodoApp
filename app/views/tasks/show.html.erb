@@ -3,7 +3,7 @@
 <p><%=t('todo.detail')%></p>
 <p>
     <%= t('activerecord.attributes.task.create_time')%> : <%= @task.create_time ? l(@task.create_time) : t('todo.noTime') %><br>
-    <%= t('activerecord.attributes.task.end_time')%> : <%= @task.create_time ? l(@task.create_time) : t('todo.noTime') %><br>
+    <%= t('activerecord.attributes.task.end_time')%> : <%= @task.end_time ? l(@task.end_time) : t('todo.noTime') %><br>
     <%= t('activerecord.attributes.task.status')%> : <%= @task.status.humanize %><br>
     <%= t('activerecord.attributes.task.priority')%>: <%= @task.priority.humanize %><br>
     <%= t('activerecord.attributes.task.tag')%> : <%= @task.tag %><br>
