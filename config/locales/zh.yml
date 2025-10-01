@@ -1,0 +1,38 @@
+zh:
+  todo:
+    title: 我的任務
+    newTask: 新增任務
+    editTask: 編輯任務
+    deleteTask: 刪除任務
+    detail: 任務詳情
+    back: 返回
+  
+  notice:
+    createSuccess: 任務建立成功
+    updateSuccess: 任務更新成功
+    deleteSuccess: 任務刪除成功
+
+  activerecord:
+    models:
+      task: 任務
+    attributes:
+      task:
+        name: 名稱
+        create_time: 建立時間
+        end_time: 結束時間
+        status: 狀態
+        priority: 優先順序
+        tag: 標籤
+        statuses:
+          pending: 待處理
+          in_progress: 處理中
+          completed: 已完成
+        priorities:
+          low: 低
+          medium: 中
+          high: 高
+  
+  helpers:
+    submit:
+      create: 建立任務
+      update: 更新任務

@@ -1,6 +1,6 @@
-<h1>Tasks</h1>
+<h1><%=t('todo.title')%></h1>
 
-<button><%= link_to "New Task", new_task_path %></button>
+<button><%= link_to t('todo.newTask'), new_task_path %></button>
 <ul>
     <% @tasks.each do |task|%>
         <li>
