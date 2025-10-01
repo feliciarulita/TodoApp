@@ -6,6 +6,7 @@ zh:
     deleteTask: 刪除任務
     detail: 任務詳情
     back: 返回
+    noTime: 未設定
   
   notice:
     createSuccess: 任務建立成功
@@ -36,3 +37,7 @@ zh:
     submit:
       create: 建立任務
       update: 更新任務
+  
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"

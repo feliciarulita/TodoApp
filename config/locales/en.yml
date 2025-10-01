@@ -31,12 +31,11 @@ en:
   todo:
     title: My Tasks
     newTask: New Task
-    editTask: Edit
-    deleteTask: Delete
+    editTask: Edit Task
+    deleteTask: Delete Task
     detail: Task Details
-    createdTime: Created Time
-    endTime: End Time
     back: Back
+    noTime: No Time
 
   notice:
     createSuccess: Task was successfully created.
@@ -67,3 +66,7 @@ en:
     submit:
       create: Create Task
       update: Update Task
+  
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"
