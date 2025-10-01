@@ -11,6 +11,9 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit
+    @task = Task.find(params[:id])
+  end
   def create
     @task = Task.new(task_params)
     if @task.save
@@ -21,9 +24,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-    @task = Task.find(params[:id])
-  end
 
   def update
     @task = Task.find(params[:id])
@@ -45,6 +45,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :create_time, :end_time, :status, :priority, :tag)
+    params.expect(task: [ :name, :create_time, :end_time, :status, :priority, :tag ])
   end
 end
