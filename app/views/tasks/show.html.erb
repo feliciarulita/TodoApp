@@ -4,8 +4,8 @@
 <p>
     Created at: <%= @task.create_time %><br>
     End time: <%= @task.end_time %><br>
-    Status: <%= @task.status %><br>
-    Priority: <%= @task.priority %><br>
+    Status: <%= @task.status.humanize %><br>
+    Priority: <%= @task.priority.humanize %><br>
     Tag: <%= @task.tag %><br>
 </p>
 <button><%= link_to "Edit", edit_task_path(@task) %></button>

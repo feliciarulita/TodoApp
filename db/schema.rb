@@ -18,8 +18,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_30_065428) do
     t.string "name"
     t.datetime "create_time"
     t.datetime "end_time"
-    t.string "status", default: "Pending"
-    t.string "priority"
+    t.integer "status", default: 0
+    t.integer "priority", default: 0
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

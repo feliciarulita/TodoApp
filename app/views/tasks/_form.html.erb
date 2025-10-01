@@ -23,11 +23,11 @@
     </div>
     <div class="field">
         <%= f.label :status %>
-        <%= f.select :status, ["Pending", "In Progress", "Completed"], {} %>
+        <%= f.select :status, Task.statuses.keys.map { |s| [s.humanize, s] } %>
     </div>
     <div class="field">
         <%= f.label :priority %>
-        <%= f.select :priority, ["High", "Medium", "Low"], {} %>
+        <%= f.select :priority, Task.priorities.keys.map { |s| [s.humanize, s] } %>
     </div>
     <div class="field">
         <%= f.label :tag %>
