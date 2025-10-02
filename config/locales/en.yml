@@ -31,7 +31,9 @@ en:
   todo:
     title: My Tasks
     newTask: New Task
+    addTask: Create Task
     editTask: Edit Task
+    updateTask: Update Task
     deleteTask: Delete Task
     detail: Task Details
     back: Back

@@ -2,7 +2,9 @@ zh:
   todo:
     title: 我的任務
     newTask: 新增任務
+    addTask: 新增任務
     editTask: 編輯任務
+    updateTask: 更新任務
     deleteTask: 刪除任務
     detail: 任務詳情
     back: 返回
