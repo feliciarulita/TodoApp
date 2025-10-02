@@ -45,6 +45,12 @@ en:
     updateSuccess: Task was successfully updated.
     deleteSuccess: Task was successfully deleted.
 
+  errors:
+    messages:
+      header: "Please correct the following errors:"
+      blank: "can't be blank"
+      greater_than: "End time must be after created time"
+
   activerecord:
     models:
       task: Task
