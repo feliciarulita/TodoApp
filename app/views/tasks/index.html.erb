@@ -1,15 +1,15 @@
 <h1><%=t('todo.title')%></h1>
 
-<button><%= link_to t('todo.newTask'), new_task_path(sort: params[:sort], direction: params[:direction]) %></button>
+<button><%= link_to t('todo.newTask'), new_task_path %></button>
 <%= form_with url: root_path, method: :get, local: true do%>
-    <%= select_tag :sort, options_for_select([[I18n.t("activerecord.attributes.task.create_time"),"create_time"],["ID","id"]], params[:sort]) %>
-    <%= select_tag :direction, options_for_select([[I18n.t("activerecord.attributes.task.ascending"),"asc"],[I18n.t("activerecord.attributes.task.descending"),"desc"]], params[:direction])%>
+    <%= select_tag :sort, options_for_select([[I18n.t("activerecord.attributes.task.create_time"),"create_time"],["ID","id"]], session[:sort]) %>
+    <%= select_tag :direction, options_for_select([[I18n.t("activerecord.attributes.task.ascending"),"asc"],[I18n.t("activerecord.attributes.task.descending"),"desc"]], session[:direction])%>
     <%= submit_tag I18n.t("todo.sort")%>
 <% end %>
 <ul>
     <% @tasks.each do |task|%>
         <li>
-            <%= link_to task.name, task_path(task, sort: params[:sort], direction: params[:direction]) %>
+            <%= link_to task.name, task_path(task) %>
         </li>
     <% end %>
 </ul>
