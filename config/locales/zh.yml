@@ -9,6 +9,7 @@ zh:
     detail: 任務詳情
     back: 返回
     noTime: 未設定
+    sort: 排序
   
   notice:
     createSuccess: 任務建立成功
@@ -34,6 +35,8 @@ zh:
           low: 低
           medium: 中
           high: 高
+        ascending: 升冪
+        descending: 降冪
   
   helpers:
     submit:
