@@ -28,4 +28,47 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  todo:
+    title: My Tasks
+    newTask: New Task
+    addTask: Create Task
+    editTask: Edit Task
+    updateTask: Update Task
+    deleteTask: Delete Task
+    detail: Task Details
+    back: Back
+    noTime: No Time
+
+  notice:
+    createSuccess: Task was successfully created.
+    updateSuccess: Task was successfully updated.
+    deleteSuccess: Task was successfully deleted.
+
+  activerecord:
+    models:
+      task: Task
+    attributes:
+      task:
+        name: Name
+        create_time: Created Time
+        end_time: End Time
+        status: Status
+        priority: Priority
+        tag: Tag
+        statuses:
+          pending: Pending
+          in_progress: In Progress
+          completed: Completed
+        priorities:
+          low: Low
+          medium: Medium
+          high: High
+  
+  helpers:
+    submit:
+      create: Create Task
+      update: Update Task
+  
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M:%S"

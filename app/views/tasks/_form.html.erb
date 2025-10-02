@@ -23,11 +23,11 @@
     </div>
     <div class="field">
         <%= f.label :status %>
-        <%= f.select :status, Task.statuses.keys.map { |s| [s.humanize, s] } %>
+        <%= f.select :status, Task.statuses.keys.map { |s| [I18n.t("activerecord.attributes.task.statuses.#{s}"), s] } %>
     </div>
     <div class="field">
         <%= f.label :priority %>
-        <%= f.select :priority, Task.priorities.keys.map { |s| [s.humanize, s] } %>
+        <%= f.select :priority, Task.priorities.keys.map { |s| [I18n.t("activerecord.attributes.task.priorities.#{s}"), s] } %>
     </div>
     <div class="field">
         <%= f.label :tag %>
