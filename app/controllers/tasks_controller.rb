@@ -1,12 +1,7 @@
 class TasksController < ApplicationController
   def index
-    if params[:sort].present? && params[:direction].present?
-      session[:sort] = params[:sort]
-      session[:direction] = params[:direction]
-    end
-
-    sort_column = session[:sort] || "id"
-    sort_direction = session[:direction] || "desc"
+    sort_column = params[:sort] || "id"
+    sort_direction = params[:direction] || "desc"
     @tasks = Task.order("#{sort_column} #{sort_direction}")
   end
 
@@ -21,11 +16,12 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
   end
+
   def create
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = t("notice.createSuccess")
-      redirect_to root_path
+      redirect_to root_path(sort: params[:sort], direction: params[:direction])
     else
       render :new
     end
@@ -36,7 +32,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = t("notice.updateSuccess")
-      redirect_to task_path(@task)
+      redirect_to task_path(@task, sort: params[:sort], direction: params[:direction])
     else
       render :edit
     end
@@ -46,7 +42,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = t("notice.deleteSuccess")
-    redirect_to root_path
+    redirect_to root_path(sort: params[:sort], direction: params[:direction])
   end
 
   private
