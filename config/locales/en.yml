@@ -38,6 +38,7 @@ en:
     detail: Task Details
     back: Back
     noTime: No Time
+    sort: Sort
 
   notice:
     createSuccess: Task was successfully created.
@@ -63,6 +64,8 @@ en:
           low: Low
           medium: Medium
           high: High
+        ascending: Ascending
+        descending: Descending
   
   helpers:
     submit:
