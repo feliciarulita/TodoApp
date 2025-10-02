@@ -8,6 +8,6 @@
     <%= t('activerecord.attributes.task.priority')%>: <%= @task.priority.humanize %><br>
     <%= t('activerecord.attributes.task.tag')%> : <%= @task.tag %><br>
 </p>
-<button><%= link_to t('todo.editTask'), edit_task_path(@task) %></button>
-<button><%= link_to t('todo.back'), root_path %></button>
-<%= button_to t('todo.deleteTask'), task_path(@task), method: :delete%>
+<button><%= link_to t('todo.editTask'), edit_task_path(@task, sort: params[:sort], direction: params[:direction]) %></button>
+<button><%= link_to t('todo.back'), root_path(sort: params[:sort], direction: params[:direction]) %></button>
+<%= button_to t('todo.deleteTask'), task_path(@task, sort: params[:sort], direction: params[:direction]), method: :delete%>
