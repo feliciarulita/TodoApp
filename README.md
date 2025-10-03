@@ -22,23 +22,29 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+## Website Link (Render)
+
+https://todoapp-yb5f.onrender.com
 
 ## Table Schema
+```mermaid
+erDiagram
+    USER {
+        int userID PK
+        string name
+        string password
+        boolean manager
+    }
 
-User : {
-    userID (Primary Key),
-    name : string,
-    password : string,
-    manager : boolean
-}
+    TASK {
+        int taskID PK
+        string name
+        datetime createTime
+        datetime endTime
+        enum status "Pending, In Progress, Completed"
+        enum priority "High, Medium, Low"
+        string tag
+        int userID FK
+    }
 
-Task : {
-    taskID (Primary Key),
-    name : string,
-    createTime : datetime,
-    endTime : datetime,
-    status : [Pending, In Progress, Completed],
-    priority : [High, Medium, Low],
-    tag : string,
-    userID (Foreign Key reference to User.userID)
-}
+    USER ||--o{ TASK : "has"
