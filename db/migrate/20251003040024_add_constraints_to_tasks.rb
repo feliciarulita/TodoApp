@@ -17,7 +17,7 @@ class AddConstraintsToTasks < ActiveRecord::Migration[8.0]
       t.change_null :priority, true
       t.change_null :create_time, true
     end
-  end
 
-  remove_check_constraint :tasks, name: "end_after_create"
+    remove_check_constraint :tasks, name: "end_after_create"
+  end
 end
