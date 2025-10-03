@@ -5,9 +5,7 @@ class TasksController < ApplicationController
       session[:direction] = params[:direction]
     end
 
-    sort_column = session[:sort] || "id"
-    sort_direction = session[:direction] || "desc"
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+    @tasks = Task.sorted(session[:sort], session[:direction])
   end
 
   def show

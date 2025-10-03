@@ -11,12 +11,12 @@ RSpec.describe "Tasks", type: :system do
   context "when creating a task" do
     before do
       visit new_task_path
-      fill_in I18n.t("activerecord.attributes.task.name"), with: "Task 1"
-      fill_in I18n.t("activerecord.attributes.task.create_time"), with: "2025-09-30T15:00"
-      fill_in I18n.t("activerecord.attributes.task.end_time"), with: "2025-10-01T18:00"
+      fill_in Task.human_attribute_name(:name), with: "Task 1"
+      fill_in Task.human_attribute_name(:create_time), with: "2025-09-30T15:00"
+      fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in I18n.t("activerecord.attributes.task.tag"), with: "Work"
+      fill_in Task.human_attribute_name(:tag), with: "Work"
       click_button I18n.t("todo.addTask")
     end
 
@@ -39,7 +39,7 @@ RSpec.describe "Tasks", type: :system do
 
     before do
       visit edit_task_path(I18n.locale, task)
-      fill_in I18n.t("activerecord.attributes.task.name"), with: "Updated Task 3"
+      fill_in Task.human_attribute_name(:name), with: "Updated Task 3"
       select I18n.t("activerecord.attributes.task.statuses.in_progress"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
       click_button I18n.t("todo.updateTask")
@@ -67,8 +67,8 @@ RSpec.describe "Tasks", type: :system do
 
     before do
       visit root_path
-      select I18n.t("activerecord.attributes.task.create_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.ascending"), from: "direction"
+      select Task.human_attribute_name(:create_time), from: "sort"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -83,8 +83,8 @@ RSpec.describe "Tasks", type: :system do
 
     before do
       visit root_path
-      select I18n.t("activerecord.attributes.task.create_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.descending"), from: "direction"
+      select Task.human_attribute_name(:create_time), from: "sort"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -100,7 +100,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select "ID", from: "sort"
-      select I18n.t("activerecord.attributes.task.ascending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -116,7 +116,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select "ID", from: "sort"
-      select I18n.t("activerecord.attributes.task.descending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -125,31 +125,63 @@ RSpec.describe "Tasks", type: :system do
     end
   end
 
+  context "when sorting tasks by end_time descending" do
+    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
+    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+
+    before do
+      visit root_path
+      select Task.human_attribute_name(:end_time), from: "sort"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
+      click_button I18n.t("todo.sort")
+    end
+
+    it "expected Task 2 to appear before Task 1" do
+      expect(page.body.index(task_second.name)).to be < page.body.index(task_first.name)
+    end
+  end
+
+  context "when sorting tasks by end_time ascending" do
+    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
+    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+
+    before do
+      visit root_path
+      select Task.human_attribute_name(:end_time), from: "sort"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
+      click_button I18n.t("todo.sort")
+    end
+
+    it "expected Task 1 to appear before Task 2" do
+      expect(page.body.index(task_first.name)).to be < page.body.index(task_second.name)
+    end
+  end
+
   context "when creating a task, name is blank" do
     before do
       visit new_task_path
-      fill_in I18n.t("activerecord.attributes.task.name"), with: ""
-      fill_in I18n.t("activerecord.attributes.task.create_time"), with: "2025-09-30T15:00"
-      fill_in I18n.t("activerecord.attributes.task.end_time"), with: "2025-10-01T18:00"
+      fill_in Task.human_attribute_name(:name), with: ""
+      fill_in Task.human_attribute_name(:create_time), with: "2025-09-30T15:00"
+      fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in I18n.t("activerecord.attributes.task.tag"), with: "Work"
+      fill_in Task.human_attribute_name(:tag), with: "Work"
       click_button I18n.t("todo.addTask")
     end
 
     it { is_expected.to have_content(I18n.t('errors.messages.header')) }
-    it { is_expected.to have_content("#{I18n.t('activerecord.attributes.task.name')} #{I18n.t('errors.messages.blank')}") }
+    it { is_expected.to have_content("#{Task.human_attribute_name(:name)} #{I18n.t('errors.messages.blank')}") }
   end
 
   context "when creating a task, create time is greater than end time" do
     before do
       visit new_task_path
-      fill_in I18n.t("activerecord.attributes.task.name"), with: "Task 1"
-      fill_in I18n.t("activerecord.attributes.task.create_time"), with: "2025-10-03T15:00"
-      fill_in I18n.t("activerecord.attributes.task.end_time"), with: "2025-10-01T18:00"
+      fill_in Task.human_attribute_name(:name), with: "Task 1"
+      fill_in Task.human_attribute_name(:create_time), with: "2025-10-03T15:00"
+      fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in I18n.t("activerecord.attributes.task.tag"), with: "Work"
+      fill_in Task.human_attribute_name(:tag), with: "Work"
       click_button I18n.t("todo.addTask")
     end
 
