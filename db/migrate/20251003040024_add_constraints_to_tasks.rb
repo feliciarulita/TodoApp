@@ -7,7 +7,7 @@ class AddConstraintsToTasks < ActiveRecord::Migration[8.0]
       t.change_null :create_time, false
     end
 
-    add_check_constraint :tasls, "end_time > create_time", name: "end_after_create"
+    add_check_constraint :tasks, "end_time > create_time", name: "end_after_create"
   end
 
   def down
