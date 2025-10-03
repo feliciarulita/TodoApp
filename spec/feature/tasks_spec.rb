@@ -124,4 +124,36 @@ RSpec.describe "Tasks", type: :system do
       expect(page.body.index(task_second.name)).to be < page.body.index(task_first.name)
     end
   end
+
+  context "when creating a task, name is blank" do
+    before do
+      visit new_task_path
+      fill_in I18n.t("activerecord.attributes.task.name"), with: ""
+      fill_in I18n.t("activerecord.attributes.task.create_time"), with: "2025-09-30T15:00"
+      fill_in I18n.t("activerecord.attributes.task.end_time"), with: "2025-10-01T18:00"
+      select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
+      select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
+      fill_in I18n.t("activerecord.attributes.task.tag"), with: "Work"
+      click_button I18n.t("todo.addTask")
+    end
+
+    it { is_expected.to have_content(I18n.t('errors.messages.header')) }
+    it { is_expected.to have_content("#{I18n.t('activerecord.attributes.task.name')} #{I18n.t('errors.messages.blank')}") }
+  end
+
+  context "when creating a task, create time is greater than end time" do
+    before do
+      visit new_task_path
+      fill_in I18n.t("activerecord.attributes.task.name"), with: "Task 1"
+      fill_in I18n.t("activerecord.attributes.task.create_time"), with: "2025-10-03T15:00"
+      fill_in I18n.t("activerecord.attributes.task.end_time"), with: "2025-10-01T18:00"
+      select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
+      select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
+      fill_in I18n.t("activerecord.attributes.task.tag"), with: "Work"
+      click_button I18n.t("todo.addTask")
+    end
+
+    it { is_expected.to have_content(I18n.t('errors.messages.header')) }
+    it { is_expected.to have_content(I18n.t('errors.messages.greater_than')) }
+  end
 end
