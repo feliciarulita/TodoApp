@@ -2,7 +2,7 @@
 
 <button><%= link_to t('todo.newTask'), new_task_path %></button>
 <%= form_with url: root_path, method: :get, local: true do%>
-    <%= select_tag :sort, options_for_select([[I18n.t("activerecord.attributes.task.create_time"),"create_time"],["ID","id"]], session[:sort]) %>
+    <%= select_tag :sort, options_for_select([[I18n.t("activerecord.attributes.task.create_time"),"create_time"],["ID","id"],[I18n.t("activerecord.attributes.task.end_time"),"end_time"]], session[:sort]) %>
     <%= select_tag :direction, options_for_select([[I18n.t("activerecord.attributes.task.ascending"),"asc"],[I18n.t("activerecord.attributes.task.descending"),"desc"]], session[:direction])%>
     <%= submit_tag I18n.t("todo.sort")%>
 <% end %>
