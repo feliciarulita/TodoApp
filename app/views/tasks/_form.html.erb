@@ -1,7 +1,7 @@
 <%= form_with model: task do |f| %>
     <% if task.errors.any? %>
     <div id="errors">
-        <h2><%= pluralize(task.errors.count, "error") %> prohibited this project from being saved:</h2>
+        <h2><%=I18n.t('errors.messages.header')%></h2>
         <ul>
             <% task.errors.full_messages.each do |message| %>
                 <li><%= message %></li>

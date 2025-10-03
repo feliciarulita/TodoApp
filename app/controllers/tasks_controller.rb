@@ -27,7 +27,7 @@ class TasksController < ApplicationController
       flash[:notice] = t("notice.createSuccess")
       redirect_to root_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
       flash[:notice] = t("notice.updateSuccess")
       redirect_to task_path(@task)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
