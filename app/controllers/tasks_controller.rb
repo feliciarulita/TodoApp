@@ -5,9 +5,9 @@ class TasksController < ApplicationController
       session[:direction] = params[:direction]
     end
 
-    sort_column = session[:sort] || "id"
-    sort_direction = session[:direction] || "desc"
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+    sort_column = (session[:sort] if %w[create_time end_time id].include?(session[:sort])) || "id"
+    sort_direction = (session[:direction] if %w[asc desc].include?(session[:direction])) || "descending"
+    @tasks = Task.order(Arel.sql("#{sort_column} #{sort_direction}"))
   end
 
   def show

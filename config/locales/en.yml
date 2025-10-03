@@ -70,8 +70,8 @@ en:
           low: Low
           medium: Medium
           high: High
-        ascending: Ascending
-        descending: Descending
+        asc: Ascending
+        desc: Descending
   
   helpers:
     submit:
