@@ -24,6 +24,7 @@ module TodoApp
     #
     config.time_zone = "Taipei"
     config.active_record.default_timezone = :local
+    config.active_job.queue_adapter = :async
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
