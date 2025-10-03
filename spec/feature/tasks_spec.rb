@@ -68,7 +68,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select I18n.t("activerecord.attributes.task.create_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.ascending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -84,7 +84,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select I18n.t("activerecord.attributes.task.create_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.descending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -100,7 +100,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select "ID", from: "sort"
-      select I18n.t("activerecord.attributes.task.ascending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -116,7 +116,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select "ID", from: "sort"
-      select I18n.t("activerecord.attributes.task.descending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -132,7 +132,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select I18n.t("activerecord.attributes.task.end_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.descending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
@@ -148,7 +148,7 @@ RSpec.describe "Tasks", type: :system do
     before do
       visit root_path
       select I18n.t("activerecord.attributes.task.end_time"), from: "sort"
-      select I18n.t("activerecord.attributes.task.ascending"), from: "direction"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
     end
 
