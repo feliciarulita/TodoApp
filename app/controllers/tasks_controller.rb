@@ -5,9 +5,7 @@ class TasksController < ApplicationController
       session[:direction] = params[:direction]
     end
 
-    sort_column   = params[:sort].in?(%w[create_time end_time id]) ? params[:sort] : "id"
-    sort_direction = params[:direction].in?(%w[asc desc]) ? params[:direction] : "desc"
-    @tasks = Task.order(sort_column => sort_direction)
+    @tasks = Task.sorted(session[:sort], session[:direction])
   end
 
   def show
