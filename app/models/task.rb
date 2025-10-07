@@ -12,9 +12,13 @@ class Task < ApplicationRecord
     allowed_columns = %w[create_time end_time id]
     allowed_directions = %w[asc desc]
 
-    column = allowed_columns.include?(sort_column) ? sort_column : "id"
-    direction = allowed_directions.include?(sort_direction) ? sort_direction : "desc"
+    column = allowed_columns.include?(sort_column) ? sort_column : "create_time"
+    direction = allowed_directions.include?(sort_direction) ? sort_direction : "asc"
 
     order(column => direction)
   }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name status create_time end_time id]
+  end
 end

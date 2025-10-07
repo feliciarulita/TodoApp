@@ -188,4 +188,16 @@ RSpec.describe "Tasks", type: :system do
     it { is_expected.to have_content(I18n.t('errors.messages.header')) }
     it { is_expected.to have_content(I18n.t('errors.messages.greater_than')) }
   end
+
+  context "when searching for tasks by name" do
+    let!(:task) { create(:task, name: "Unique", status: :pending, priority: :medium) }
+
+    before do
+      visit root_path
+      fill_in "q_name_cont", with: task.name
+      click_button I18n.t("todo.search")
+    end
+
+    it { is_expected.to have_content("Unique") }
+  end
 end

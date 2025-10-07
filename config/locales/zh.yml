@@ -10,6 +10,10 @@ zh:
     back: 返回
     noTime: 未設定
     sort: 排序
+    searchByName: 依名稱搜尋
+    searchByStatus: 依狀態搜尋
+    all: 全部
+    search: 搜尋
   
   notice:
     createSuccess: 任務建立成功
