@@ -37,6 +37,7 @@ zh:
         status: 狀態
         priority: 優先順序
         tag: 標籤
+        id : ID
         statuses:
           pending: 待處理
           in_progress: 處理中

@@ -66,6 +66,7 @@ en:
         status: Status
         priority: Priority
         tag: Tag
+        id : ID
         statuses:
           pending: Pending
           in_progress: In Progress
