@@ -1,7 +1,7 @@
 module ApplicationHelper
   def sort_options
-    %w[create_time end_time id].map do |key|
-      [ key == "id" ? "ID" : Task.human_attribute_name(key), key ]
+    %w[create_time end_time id priority].map do |key|
+      [ Task.human_attribute_name(key), key ]
     end
   end
 

@@ -157,6 +157,38 @@ RSpec.describe "Tasks", type: :system do
     end
   end
 
+  context "when sorting tasks by priority descending" do
+    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :high) }
+    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+
+    before do
+      visit root_path
+      select Task.human_attribute_name(:priority), from: "sort"
+      select I18n.t("activerecord.attributes.task.desc"), from: "direction"
+      click_button I18n.t("todo.sort")
+    end
+
+    it "expected Task 2 to appear before Task 1" do
+      expect(page.body.index(task_second.name)).to be < page.body.index(task_first.name)
+    end
+  end
+
+  context "when sorting tasks by priority ascending" do
+    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
+    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :high) }
+
+    before do
+      visit root_path
+      select Task.human_attribute_name(:end_time), from: "sort"
+      select I18n.t("activerecord.attributes.task.asc"), from: "direction"
+      click_button I18n.t("todo.sort")
+    end
+
+    it "expected Task 1 to appear before Task 2" do
+      expect(page.body.index(task_first.name)).to be < page.body.index(task_second.name)
+    end
+  end
+
   context "when creating a task, name is blank" do
     before do
       visit new_task_path
