@@ -1,10 +1,20 @@
 <h1><%=t('todo.title')%></h1>
 
 <button><%= link_to t('todo.newTask'), new_task_path %></button>
+
+<%= search_form_for @q, url: root_path, method: :get, local: true do |f| %>
+    <%= f.label :name_cont, Task.human_attribute_name(:name)%>
+    <%= f.text_field :name_cont, placeholder: t("todo.searchByName")%>
+    <%= f.label :status_eq, Task.human_attribute_name(:status)%>
+    <%= f.select :status_eq, Task.statuses.map{ |key, value| [t("activerecord.attributes.task.statuses.#{key}"), value]}, include_blank: t("todo.all") %>
+    <%= submit_tag t("todo.search")%>
+
+<% end %>
+
 <%= form_with url: root_path, method: :get, local: true do%>
     <%= select_tag :sort, options_for_select(sort_options, session[:sort]) %>
     <%= select_tag :direction, options_for_select(direction_options, session[:direction])%>
-    <%= submit_tag I18n.t("todo.sort")%>
+    <%= submit_tag t("todo.sort")%>
 <% end %>
 <ul>
     <% @tasks.each do |task|%>

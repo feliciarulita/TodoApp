@@ -1,11 +1,15 @@
 class TasksController < ApplicationController
   def index
+    @q = Task.ransack(params[:q])
+
+    @tasks = @q.result
+
     if params[:sort].present? && params[:direction].present?
       session[:sort] = params[:sort]
       session[:direction] = params[:direction]
     end
 
-    @tasks = Task.sorted(session[:sort], session[:direction])
+    @tasks = @tasks.sorted(session[:sort], session[:direction])
   end
 
   def show

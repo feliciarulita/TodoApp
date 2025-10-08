@@ -39,6 +39,10 @@ en:
     back: Back
     noTime: No Time
     sort: Sort
+    searchByName: Search by Name
+    searchByStatus: Search by Status
+    all: All
+    search: Search
 
   notice:
     createSuccess: Task was successfully created.

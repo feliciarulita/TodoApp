@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_03_040024) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_095833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_040024) do
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["create_time"], name: "index_tasks_on_create_time"
+    t.index ["end_time"], name: "index_tasks_on_end_time"
+    t.index ["name"], name: "index_tasks_on_name"
+    t.index ["status"], name: "index_tasks_on_status"
     t.check_constraint "end_time > create_time", name: "end_after_create"
   end
 end
