@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def sort_options
     %w[create_time end_time id priority].map do |key|
       [ Task.human_attribute_name(key), key ]
