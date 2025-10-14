@@ -1,39 +1,56 @@
-<%= form_with model: task do |f| %>
-    <% if task.errors.any? %>
-    <div id="errors">
-        <h2><%=I18n.t('errors.messages.header')%></h2>
-        <ul>
-            <% task.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+<div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
+    <%= form_with model: task do |f| %>
+        <% if task.errors.any? %>
+        <div class='fixed inset-0 flex items-center justify-center bg-black/40 z-[9999]'>
+            <div id="errors" class='flex flex-col bg-white justify-center items-center rounded-lg px-20 py-10 border border-black'>
+                <ul class='space-y-2 text-center'>
+                    <% task.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+                <div class='mt-10 text-center'>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class='bg-[#d9e9cf] rounded-lg px-5 py-2 border border-black'>OK</button>
+                </div>
+            </div>
+        </div>
+        <% end %>
+        <div class="field m-5">
+            <%= f.label :name %>
+            <%= f.text_field :name , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        </div>
+        <div class="field m-5">
+            <%= f.label :create_time %>
+            <%= f.date_field :create_time , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        </div>
+        <div class="field m-5">
+            <%= f.label :end_time %>
+            <%= f.date_field :end_time , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        </div>
+        <div class="field m-5">
+            <%= f.label :status %>
+            <%= f.select :status, Task.statuses.keys.map { |s| [I18n.t("activerecord.attributes.task.statuses.#{s}"), s] }, {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'} %>
+        </div>
+        <div class="field m-5">
+            <%= f.label :priority %>
+            <%= f.select :priority, Task.priorities.keys.map { |s| [I18n.t("activerecord.attributes.task.priorities.#{s}"), s] } , {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'}%>
+        </div>
+        <div class="field m-5">
+            <%= f.label :tag %>
+            <%= f.text_field :tag , class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'%>
+        </div>
+        <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
+            <% if type=="edit"%>
+                <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                    <%= link_to t('todo.back'), task_path(@task) %>
+                </div>
+            <% else %>
+                <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                    <%= link_to t('todo.back'), root_path %>
+                </div>
             <% end %>
-        </ul>
-    </div>
+            <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                <%= f.submit %>
+            </div>
+        </div>
     <% end %>
-    <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-    </div>
-    <div class="field">
-        <%= f.label :create_time %>
-        <%= f.date_field :create_time %>
-    </div>
-    <div class="field">
-        <%= f.label :end_time %>
-        <%= f.date_field :end_time %>
-    </div>
-    <div class="field">
-        <%= f.label :status %>
-        <%= f.select :status, Task.statuses.keys.map { |s| [I18n.t("activerecord.attributes.task.statuses.#{s}"), s] } %>
-    </div>
-    <div class="field">
-        <%= f.label :priority %>
-        <%= f.select :priority, Task.priorities.keys.map { |s| [I18n.t("activerecord.attributes.task.priorities.#{s}"), s] } %>
-    </div>
-    <div class="field">
-        <%= f.label :tag %>
-        <%= f.text_field :tag %>
-    </div>
-    <div class="submit">
-        <%= f.submit %>
-    </div>
-<% end %>
+</div>

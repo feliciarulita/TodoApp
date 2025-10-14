@@ -9,7 +9,7 @@ class TasksController < ApplicationController
       session[:direction] = params[:direction]
     end
 
-    @pagy, @tasks = pagy(@tasks.sorted(session[:sort], session[:direction]), limit: 2)
+    @pagy, @tasks = pagy(@tasks.sorted(session[:sort], session[:direction]), limit: 7)
   end
 
   def show

@@ -1,13 +1,19 @@
-<h1><%= @task.name %></h1>
+<div class='flex flex-col items-start px-40'>
+    <div class='py-10 text-5xl'>
+        <%= @task.name %>
+    </div>
 
-<p><%=t('todo.detail')%></p>
-<p>
-    <%= Task.human_attribute_name(:create_time) %> : <%= @task.create_time ? l(@task.create_time) : t('todo.noTime') %><br>
-    <%= Task.human_attribute_name(:end_time) %> : <%= @task.end_time ? l(@task.end_time) : t('todo.noTime') %><br>
-    <%= Task.human_attribute_name(:status) %> : <%= @task.status.humanize %><br>
-    <%= Task.human_attribute_name(:priority) %>: <%= @task.priority.humanize %><br>
-    <%= Task.human_attribute_name(:tag) %> : <%= @task.tag %><br>
-</p>
-<button><%= link_to t('todo.editTask'), edit_task_path(@task) %></button>
-<button><%= link_to t('todo.back'), root_path %></button>
-<%= button_to t('todo.deleteTask'), task_path(@task), method: :delete%>
+    <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
+        <div class='m-5'><%= Task.human_attribute_name(:create_time) %> :  <%= @task.create_time&.strftime("%Y-%m-%d") || t('todo.noTime') %></div>
+        <div class='m-5'><%= Task.human_attribute_name(:end_time) %> :  <%= @task.end_time&.strftime("%Y-%m-%d") || t('todo.noTime') %></div>
+        <div class='m-5'><%= Task.human_attribute_name(:status) %> : <%= @task.status.humanize %></div>
+        <div class='m-5'><%= Task.human_attribute_name(:priority) %>: <%= @task.priority.humanize %></div>
+        <div class='m-5'><%= Task.human_attribute_name(:tag) %> : <%= @task.tag %></div>
+        
+        <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
+            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= link_to t('todo.editTask'), edit_task_path(@task) %></div>
+            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= link_to t('todo.back'), root_path %></div>
+            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= button_to t('todo.deleteTask'), task_path(@task), method: :delete%></div>
+        </div>
+    </div>
+</div>

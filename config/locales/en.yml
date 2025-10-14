@@ -53,7 +53,7 @@ en:
     messages:
       header: "Please correct the following errors:"
       blank: "can't be blank"
-      greater_than: "End time must be after created time"
+      greater_than: "must be after created time"
 
   activerecord:
     models:

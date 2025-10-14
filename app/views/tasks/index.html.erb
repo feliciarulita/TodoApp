@@ -1,27 +1,70 @@
-<h1><%=t('todo.title')%></h1>
-
-<button><%= link_to t('todo.newTask'), new_task_path %></button>
-
-<%= search_form_for @q, url: root_path, method: :get, local: true do |f| %>
-    <%= f.label :name_cont, Task.human_attribute_name(:name)%>
-    <%= f.text_field :name_cont, placeholder: t("todo.searchByName")%>
-    <%= f.label :status_eq, Task.human_attribute_name(:status)%>
-    <%= f.select :status_eq, Task.statuses.map{ |key, value| [t("activerecord.attributes.task.statuses.#{key}"), value]}, include_blank: t("todo.all") %>
-    <%= submit_tag t("todo.search")%>
-
-<% end %>
-
-<%= form_with url: root_path, method: :get, local: true do%>
-    <%= select_tag :sort, options_for_select(sort_options, session[:sort]) %>
-    <%= select_tag :direction, options_for_select(direction_options, session[:direction])%>
-    <%= submit_tag t("todo.sort")%>
-<% end %>
-<ul>
-    <% @tasks.each do |task|%>
-        <li>
-            <%= link_to task.name, task_path(task) %>
-        </li>
+<div class='absolute right-8'>
+    <% if I18n.locale == :zh %>
+        <%= link_to "English", url_for(locale: :en),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+    <% else %>
+        <%= link_to "中文", url_for(locale: :zh),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <% end %>
-</ul>
+</div>
 
-<%== pagy_bootstrap_nav(@pagy) %>
+<div class='flex flex-col items-start px-40'>
+    <div class='py-10 text-5xl'>
+        <%=t('todo.title')%>
+    </div>
+
+    <div class='bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500'>
+        <%= link_to t('todo.newTask'), new_task_path%>
+    </div>
+
+    <div class='flex flex-row justify-between items-center w-full'>
+        <%= form_with url: root_path, method: :get, local: true do%>
+            <div class='flex gap-3 my-5'>
+                <%= select_tag :sort, options_for_select(sort_options, session[:sort]), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 text-center border border-gray-500'%>
+                <%= select_tag :direction, options_for_select(direction_options, session[:direction]), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 text-center border border-gray-500'%>
+                <%= submit_tag t("todo.sort"), class: ''%>
+            </div>
+        <% end %>
+        
+        <%= search_form_for @q, url: root_path, method: :get, local: true do |f| %>
+            <div class='flex gap-3 my-5 items-center'>
+                <%= f.label :name_cont, Task.human_attribute_name(:name)%>
+                <%= f.text_field :name_cont, placeholder: t("todo.searchByName"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>
+                <%= f.label :status_eq, Task.human_attribute_name(:status)%>
+                <%= f.select :status_eq, Task.statuses.map{ |key, value| [t("activerecord.attributes.task.statuses.#{key}"), value]}, {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
+                <%= submit_tag t("todo.search"), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 border border-gray-500'%>
+            </div>
+        <% end %>
+    </div>
+
+    <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full h-96'>
+        <table class=' w-full rounded-lg text-center'>
+            <thead>
+                <tr class='table w-full table-fixed'>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.name")%></th>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.create_time")%></th>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.end_time")%></th>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.status")%></th>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.priority")%></th>
+                    <th class='px-10 py-3'><%= t("activerecord.attributes.task.tag")%></th>
+                </tr>
+            </thead>
+            <tr class='border-t border-gray-500'></tr>
+            <tbody class='block h-83 overflow-y-auto rounded-b-lg'>
+                <% @tasks.each do |task|%>
+                    <tr onclick="window.location = '<%= task_path(task) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
+                        <td class='px-10 py-3'><%= task.name %></td>
+                        <td class='px-10 py-3'><%= task.create_time.strftime("%Y-%m-%d") %></td>
+                        <td class='px-10 py-3'><%= task.end_time.strftime("%Y-%m-%d") %></td>
+                        <td class='px-10 py-3'><%= t("activerecord.attributes.task.statuses.#{task.status}") %></td>
+                        <td class='px-10 py-3'><%= t("activerecord.attributes.task.priorities.#{task.priority}") %></td>
+                        <td class='px-10 py-3'><%= task.tag %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+            
+        </table>
+    </div>
+    <div class='flex justify-center items-center w-full mt-4'>
+        <%== pagy_nav(@pagy)%>
+    </div>
+
+</div>
