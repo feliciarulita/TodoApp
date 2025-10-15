@@ -25,17 +25,18 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when viewing tasks list" do
+    let!(:task) { create(:task) }
+
     before do
-      create(:task, name: "Task 2", status: :pending, priority: :medium)
       visit root_path
     end
 
     it { is_expected.to have_content(I18n.t("todo.title")) }
-    it { is_expected.to have_content("Task 2") }
+    it { is_expected.to have_content(task.name) }
   end
 
   context "when updating a task" do
-    let!(:task) { create(:task, name: "Task 3", status: :pending, priority: :low) }
+    let!(:task) { create(:task) }
 
     before do
       visit edit_task_path(I18n.locale, task)
@@ -50,7 +51,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when deleting a task" do
-    let!(:task) { create(:task, name: "Task 4", status: :pending, priority: :medium) }
+    let!(:task) { create(:task) }
 
     before do
       visit task_path(I18n.locale, task)
@@ -58,12 +59,12 @@ RSpec.describe "Tasks", type: :system do
     end
 
     it { is_expected.to have_content(I18n.t("notice.deleteSuccess")) }
-    it { is_expected.not_to have_content("Task 4") }
+    it { is_expected.not_to have_content(task.name) }
   end
 
   context "when sorting tasks by create_time ascending" do
-    let!(:task_first) { create(:task, name: "Task 1", create_time: "2025-09-30T10:00", status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", create_time: "2025-10-2T10:00", status: :pending, priority: :low) }
+    let!(:task_first) { create(:task) }
+    let!(:task_second) { create(:task, :later_create_time) }
 
     before do
       visit root_path
@@ -78,8 +79,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by create_time descending" do
-    let!(:task_first) { create(:task, name: "Task 1", create_time: "2025-09-30T10:00", status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", create_time: "2025-10-2T10:00", status: :pending, priority: :low) }
+    let!(:task_first) { create(:task) }
+    let!(:task_second) { create(:task, :later_create_time) }
 
     before do
       visit root_path
@@ -94,8 +95,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by ID ascending" do
-    let!(:task_first) { create(:task, name: "Task 1", create_time: "2025-09-30T10:00", status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", create_time: "2025-10-2T10:00", status: :pending, priority: :low) }
+    let!(:task_first) { create(:task) }
+    let!(:task_second) { create(:task) }
 
     before do
       visit root_path
@@ -110,8 +111,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by ID descending" do
-    let!(:task_first) { create(:task, name: "Task 1", create_time: "2025-09-30T10:00", status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", create_time: "2025-10-2T10:00", status: :pending, priority: :low) }
+    let!(:task_first) { create(:task) }
+    let!(:task_second) { create(:task) }
 
     before do
       visit root_path
@@ -126,8 +127,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by end_time descending" do
-    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+    let!(:task_first) { create(:task, :earlier_end_time) }
+    let!(:task_second) { create(:task) }
 
     before do
       visit root_path
@@ -142,8 +143,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by end_time ascending" do
-    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+    let!(:task_first) { create(:task, :earlier_end_time) }
+    let!(:task_second) { create(:task) }
 
     before do
       visit root_path
@@ -158,8 +159,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by priority descending" do
-    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :high) }
+    let!(:task_first) { create(:task, :lower_priority) }
+    let!(:task_second) { create(:task, :higher_priority) }
 
     before do
       visit root_path
@@ -174,8 +175,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by priority ascending" do
-    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
-    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :high) }
+    let!(:task_first) { create(:task, :lower_priority) }
+    let!(:task_second) { create(:task, :higher_priority) }
 
     before do
       visit root_path
@@ -220,7 +221,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when searching for tasks by name" do
-    let!(:task) { create(:task, name: "Unique", status: :pending, priority: :medium) }
+    let!(:task) { create(:task) }
 
     before do
       visit root_path
@@ -228,6 +229,6 @@ RSpec.describe "Tasks", type: :system do
       click_button I18n.t("todo.search")
     end
 
-    it { is_expected.to have_content("Unique") }
+    it { is_expected.to have_content(task.name) }
   end
 end

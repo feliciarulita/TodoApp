@@ -9,11 +9,11 @@ class Task < ApplicationRecord
   validates :end_time, comparison: { greater_than: :create_time }
 
   scope :sorted, ->(sort_column, sort_direction) {
-    allowed_columns = %w[create_time end_time id priority]
-    allowed_directions = %w[asc desc]
+    ALLOWED_COLUMNS = %w[create_time end_time id priority].freeze
+    ALLOWER_DIRECTIONS = %w[asc desc].freeze
 
-    column = allowed_columns.include?(sort_column) ? sort_column : "create_time"
-    direction = allowed_directions.include?(sort_direction) ? sort_direction : "asc"
+    column = ALLOWED_COLUMNS.include?(sort_column) ? sort_column : "create_time"
+    direction = ALLOWER_DIRECTIONS.include?(sort_direction) ? sort_direction : "asc"
 
     order(column => direction)
   }
