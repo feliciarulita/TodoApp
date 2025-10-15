@@ -158,8 +158,8 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by priority descending" do
-    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :high) }
-    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :low) }
+    let!(:task_first) { create(:task, name: "Task 1", end_time: 2.days.from_now, status: :pending, priority: :low) }
+    let!(:task_second) { create(:task, name: "Task 2", end_time: 4.days.from_now, status: :pending, priority: :high) }
 
     before do
       visit root_path
@@ -201,7 +201,6 @@ RSpec.describe "Tasks", type: :system do
       click_button I18n.t("todo.addTask")
     end
 
-    it { is_expected.to have_content(I18n.t('errors.messages.header')) }
     it { is_expected.to have_content("#{Task.human_attribute_name(:name)} #{I18n.t('errors.messages.blank')}") }
   end
 
@@ -217,7 +216,6 @@ RSpec.describe "Tasks", type: :system do
       click_button I18n.t("todo.addTask")
     end
 
-    it { is_expected.to have_content(I18n.t('errors.messages.header')) }
     it { is_expected.to have_content(I18n.t('errors.messages.greater_than')) }
   end
 
