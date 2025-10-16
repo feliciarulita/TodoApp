@@ -22,16 +22,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <% if I18n.locale == :zh %>
-      <%= link_to "English", url_for(locale: :en)%>
-    <% else %>
-      <%= link_to "中文", url_for(locale: :zh)%>
-    <% end %>
+  <body class='bg-[#faf8f1]'>
     <br>
-    <% if flash[:notice] %>
-      <p class="flash"><%= flash[:notice] %></p>
-    <% end %>
-    <%= yield %>
+      <% if flash[:notice] %>
+        <div class='flex justify-center items-center'>
+          <p class="flash rounded-lg bg-[#d9e9cf] p-4 border border-black"><%= flash[:notice] %></p>
+        </div>
+      <% end %>
+    
+      <%= yield %>
+    
   </body>
 </html>
