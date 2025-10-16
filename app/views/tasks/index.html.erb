@@ -29,7 +29,7 @@
                 <%= f.label :name_cont, Task.human_attribute_name(:name)%>
                 <%= f.text_field :name_cont, placeholder: t("todo.searchByName"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>
                 <%= f.label :status_eq, Task.human_attribute_name(:status)%>
-                <%= f.select :status_eq, Task.statuses.map{ |key, value| [t(key, scope: %i[activerecord attributes task statuses]), value]}, {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
+                <%= f.select :status_eq, options_for_select(status_options), {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
                 <%= submit_tag t("todo.search"), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 border border-gray-500'%>
             </div>
         <% end %>
@@ -39,12 +39,9 @@
         <table class=' w-full rounded-lg text-center'>
             <thead>
                 <tr class='table w-full table-fixed'>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:name)%></th>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:create_time)%></th>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:end_time)%></th>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:status)%></th>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:priority)%></th>
-                    <th class='px-10 py-3'><%= Task.human_attribute_name(:tag)%></th>
+                    <% [:name, :create_time, :end_time, :status, :priority, :tag].each do |attr| %>
+                        <th class='px-10 py-3'><%= Task.human_attribute_name(attr)%></th>
+                    <% end %>
                 </tr>
             </thead>
             <tr class='border-t border-gray-500'></tr>
