@@ -28,11 +28,11 @@
         </div>
         <div class="field m-5">
             <%= f.label :status %>
-            <%= f.select :status, options_for_select(status_options), {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'} %>
+            <%= f.select :status, options_for_select(status_options_key), {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'} %>
         </div>
         <div class="field m-5">
             <%= f.label :priority %>
-            <%= f.select :priority, options_for_select(priority_options) , {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'}%>
+            <%= f.select :priority, options_for_select(priority_options_key) , {} , {class: 'bg-white rounded-lg px-4 py-2 border border-black mx-20'}%>
         </div>
         <div class="field m-5">
             <%= f.label :tag %>

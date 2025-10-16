@@ -23,4 +23,16 @@ module ApplicationHelper
       [ I18n.t(key, scope: %i[activerecord attributes task priorities]), value ]
     end
   end
+
+  def status_options_key
+    Task.statuses.map do |key, value|
+      [ I18n.t(key, scope: %i[activerecord attributes task statuses]), key ]
+    end
+  end
+
+  def priority_options_key
+    Task.priorities.map do |key, value|
+      [ I18n.t(key, scope: %i[activerecord attributes task priorities]), key ]
+    end
+  end
 end
