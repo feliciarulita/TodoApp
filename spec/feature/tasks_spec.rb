@@ -3,10 +3,19 @@ require "rails_helper"
 RSpec.describe "Tasks", type: :system do
   subject { page }
 
+  let!(:user) { create(:user) }
+
   before do
     driven_by(:rack_test)
+    visit root_path
+    fill_in :email, with: user.email
+    fill_in "password_digest", with: "123"
+    click_button User.human_attribute_name(:login)
   end
 
+  context "when login to created user" do
+    it { is_expected.to have_content("#{I18n.t('todo.welcome')}, #{user.name} !") }
+  end
 
   context "when creating a task" do
     before do
@@ -25,10 +34,10 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when viewing tasks list" do
-    let!(:task) { create(:task) }
+    let!(:task) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
     end
 
     it { is_expected.to have_content(I18n.t("todo.title")) }
@@ -36,7 +45,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when updating a task" do
-    let!(:task) { create(:task) }
+    let!(:task) { create(:task, user: user) }
 
     before do
       visit edit_task_path(I18n.locale, task)
@@ -51,7 +60,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when deleting a task" do
-    let!(:task) { create(:task) }
+    let!(:task) { create(:task, user: user) }
 
     before do
       visit task_path(I18n.locale, task)
@@ -63,11 +72,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by create_time ascending" do
-    let!(:task_first) { create(:task) }
-    let!(:task_second) { create(:task, :later_create_time) }
+    let!(:task_first) { create(:task, user: user) }
+    let!(:task_second) { create(:task, :later_create_time, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:create_time), from: "sort"
       select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -79,11 +88,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by create_time descending" do
-    let!(:task_first) { create(:task) }
-    let!(:task_second) { create(:task, :later_create_time) }
+    let!(:task_first) { create(:task, user: user) }
+    let!(:task_second) { create(:task, :later_create_time, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:create_time), from: "sort"
       select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -95,11 +104,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by ID ascending" do
-    let!(:task_first) { create(:task) }
-    let!(:task_second) { create(:task) }
+    let!(:task_first) { create(:task, user: user) }
+    let!(:task_second) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select "ID", from: "sort"
       select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -111,11 +120,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by ID descending" do
-    let!(:task_first) { create(:task) }
-    let!(:task_second) { create(:task) }
+    let!(:task_first) { create(:task, user: user) }
+    let!(:task_second) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select "ID", from: "sort"
       select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -127,11 +136,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by end_time descending" do
-    let!(:task_first) { create(:task, :earlier_end_time) }
-    let!(:task_second) { create(:task) }
+    let!(:task_first) { create(:task, :earlier_end_time, user: user) }
+    let!(:task_second) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:end_time), from: "sort"
       select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -143,11 +152,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by end_time ascending" do
-    let!(:task_first) { create(:task, :earlier_end_time) }
-    let!(:task_second) { create(:task) }
+    let!(:task_first) { create(:task, :earlier_end_time, user: user) }
+    let!(:task_second) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:end_time), from: "sort"
       select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -159,11 +168,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by priority descending" do
-    let!(:task_first) { create(:task, :lower_priority) }
-    let!(:task_second) { create(:task, :higher_priority) }
+    let!(:task_first) { create(:task, :lower_priority, user: user) }
+    let!(:task_second) { create(:task, :higher_priority, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:priority), from: "sort"
       select I18n.t("activerecord.attributes.task.desc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -175,11 +184,11 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when sorting tasks by priority ascending" do
-    let!(:task_first) { create(:task, :lower_priority) }
-    let!(:task_second) { create(:task, :higher_priority) }
+    let!(:task_first) { create(:task, :lower_priority, user: user) }
+    let!(:task_second) { create(:task, :higher_priority, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       select Task.human_attribute_name(:end_time), from: "sort"
       select I18n.t("activerecord.attributes.task.asc"), from: "direction"
       click_button I18n.t("todo.sort")
@@ -221,10 +230,10 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when searching for tasks by name" do
-    let!(:task) { create(:task) }
+    let!(:task) { create(:task, user: user) }
 
     before do
-      visit root_path
+      visit tasks_path
       fill_in "q_name_cont", with: task.name
       click_button I18n.t("todo.search")
     end

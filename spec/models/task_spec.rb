@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:user) { create(:user) }
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:status) }
@@ -14,8 +16,8 @@ RSpec.describe Task, type: :model do
   end
 
   describe "sorted" do
-    let!(:first_task)  { create(:task, create_time: 2.days.ago) }
-    let!(:second_task) { create(:task, create_time: Time.current) }
+    let!(:first_task)  { create(:task, create_time: 2.days.ago, user: user) }
+    let!(:second_task) { create(:task, create_time: Time.current, user: user) }
 
     it "sorts by create_time asc by default" do
       result = described_class.sorted(nil, nil)

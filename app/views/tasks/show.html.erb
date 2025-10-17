@@ -11,9 +11,15 @@
         <div class='m-5'><%= Task.human_attribute_name(:tag) %> : <%= @task.tag %></div>
         
         <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
-            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= link_to t('todo.editTask'), edit_task_path(@task) %></div>
-            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= link_to t('todo.back'), root_path %></div>
-            <div class='bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'><%= button_to t('todo.deleteTask'), task_path(@task), method: :delete%></div>
+            <%= link_to edit_task_path(@task), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= t('todo.editTask') %>
+            <% end %>
+            <%= link_to tasks_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= t('todo.back') %>
+            <% end %>
+            <%= button_to task_path(@task), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500', method: :delete do%>
+                <%= t('todo.deleteTask') %>
+            <% end %>
         </div>
     </div>
 </div>

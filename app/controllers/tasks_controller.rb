@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @q = Task.ransack(params[:q])
+    @q = current_user.tasks.ransack(params[:q])
 
     @tasks = @q.result
 
@@ -17,22 +17,26 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    if logged_in?
+      @task = Task.new
+    else
+      redirect_to tasks_path, notice: "Login first!", status: :see_other
+    end
   end
 
   def edit
     @task = Task.find(params[:id])
   end
+
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       flash[:notice] = t("notice.createSuccess")
-      redirect_to root_path
+      redirect_to tasks_path
     else
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def update
     @task = Task.find(params[:id])
@@ -48,7 +52,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = t("notice.deleteSuccess")
-    redirect_to root_path
+    redirect_to tasks_path
   end
 
   private
