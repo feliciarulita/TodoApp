@@ -44,6 +44,7 @@ en:
     all: All
     search: Search
     welcome: Welcome
+    language_switch: English
 
   notice:
     createSuccess: Task was successfully created.

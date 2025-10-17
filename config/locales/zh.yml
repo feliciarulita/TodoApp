@@ -15,6 +15,7 @@ zh:
     all: 全部
     search: 搜尋
     welcome: 歡迎
+    language_switch: 中文
   
   notice:
     createSuccess: 任務建立成功

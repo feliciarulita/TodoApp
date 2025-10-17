@@ -1,9 +1,5 @@
 <div class='absolute right-8'>
-    <% if I18n.locale == :zh %>
-        <%= link_to "English", url_for(locale: :en),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    <% else %>
-        <%= link_to "中文", url_for(locale: :zh),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    <% end %>
+    <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
 </div>
 <% if @user.errors.any? %>
   <ul class="text-red-500">

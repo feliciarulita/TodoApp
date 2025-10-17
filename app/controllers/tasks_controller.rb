@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :set_user_tasks
+
   def index
     @q = current_user.tasks.ransack(params[:q])
 
@@ -13,23 +15,19 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = @user_tasks.find(params[:id])
   end
 
   def new
-    if logged_in?
-      @task = Task.new
-    else
-      redirect_to tasks_path, notice: "Login first!", status: :see_other
-    end
+    @task = @user_tasks.new
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = @user_tasks.find(params[:id])
   end
 
   def create
-    @task = current_user.tasks.new(task_params)
+    @task = @user_tasks.new(task_params)
     if @task.save
       flash[:notice] = t("notice.createSuccess")
       redirect_to tasks_path
@@ -39,7 +37,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = @user_tasks.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = t("notice.updateSuccess")
       redirect_to task_path(@task)
@@ -49,7 +47,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = @user_tasks.find(params[:id])
     @task.destroy
     flash[:notice] = t("notice.deleteSuccess")
     redirect_to tasks_path
@@ -59,5 +57,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.expect(task: [ :name, :create_time, :end_time, :status, :priority, :tag ])
+  end
+
+  def set_user_tasks
+    @user_tasks = current_user.tasks
   end
 end

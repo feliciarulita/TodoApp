@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
-    if user && user.valid_password?(params[:password_digest])
+    user = User.authenticate(params[:email], params[:password_digest])
+    if user
       session[:user_id] = user.id
       redirect_to tasks_path
     else

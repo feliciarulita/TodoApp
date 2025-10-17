@@ -15,4 +15,10 @@ class User < ApplicationRecord
   def valid_password?(input_password)
     Digest::SHA256.hexdigest(input_password) == self.password_digest
   end
+
+  def self.authenticate(email, password)
+    user = find_by(email: email)
+    return user if user && user.valid_password?(password)
+    nil
+  end
 end
