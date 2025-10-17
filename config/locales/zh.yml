@@ -54,6 +54,7 @@ zh:
         name: 名稱
         email: 郵件
         password: 密碼
+        password_confirmation: 密碼確認
         signUp: 註冊
         login: 登入
         logout: 登出

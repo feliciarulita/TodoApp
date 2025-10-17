@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:email], params[:password_digest])
+    user = User.authenticateUser(params[:email], params[:password])
     if user
       session[:user_id] = user.id
       redirect_to tasks_path
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    flash[:notice] = "Logged out successfully!"
+    flash.now[:notice] = "Logged out successfully!"
     redirect_to login_path
   end
 end

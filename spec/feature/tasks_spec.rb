@@ -9,7 +9,7 @@ RSpec.describe "Tasks", type: :system do
     driven_by(:rack_test)
     visit root_path
     fill_in :email, with: user.email
-    fill_in "password_digest", with: "123"
+    fill_in "password", with: "123"
     click_button User.human_attribute_name(:login)
   end
 

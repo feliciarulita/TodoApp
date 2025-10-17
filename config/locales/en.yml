@@ -83,6 +83,7 @@ en:
         name: Name
         email: email
         password: Password
+        password_confirmation: Password Confirmation
         signUp: Sign Up
         login: Login
         logout: Logout

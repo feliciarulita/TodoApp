@@ -1,6 +1,4 @@
 class TasksController < ApplicationController
-  before_action :set_user_tasks
-
   def index
     @q = current_user.tasks.ransack(params[:q])
 
@@ -15,19 +13,19 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = @user_tasks.find(params[:id])
+    @task = current_scope.find(params[:id])
   end
 
   def new
-    @task = @user_tasks.new
+    @task = current_scope.new
   end
 
   def edit
-    @task = @user_tasks.find(params[:id])
+    @task = current_scope.find(params[:id])
   end
 
   def create
-    @task = @user_tasks.new(task_params)
+    @task = current_scope.new(task_params)
     if @task.save
       flash[:notice] = t("notice.createSuccess")
       redirect_to tasks_path
@@ -37,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = @user_tasks.find(params[:id])
+    @task = current_scope.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = t("notice.updateSuccess")
       redirect_to task_path(@task)
@@ -47,7 +45,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = @user_tasks.find(params[:id])
+    @task = current_scope.find(params[:id])
     @task.destroy
     flash[:notice] = t("notice.deleteSuccess")
     redirect_to tasks_path
@@ -59,7 +57,7 @@ class TasksController < ApplicationController
     params.expect(task: [ :name, :create_time, :end_time, :status, :priority, :tag ])
   end
 
-  def set_user_tasks
-    @user_tasks = current_user.tasks
+  def current_scope
+    current_user.tasks
   end
 end
