@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :user do
-    name { "MyString" }
-    email { "MyString" }
-    password { "MyString" }
+    name { Faker::Lorem.word }
+    email { "#{name.parameterize}@gmail.com" }
+    password { "123" }
+    password_confirmation { "123" }
     manager { false }
   end
 end

@@ -1,30 +1,34 @@
-<div class='absolute right-8'>
-    <% if I18n.locale == :zh %>
-        <%= link_to "English", url_for(locale: :en),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+<div class='flex flex-row justify-end items-center px-5 gap-5'>
+    <% if logged_in? %>
+        <p> <%= t('todo.welcome')%>, <%= current_user.name%> !</p>
+        <%= button_to User.human_attribute_name(:logout), logout_path, method: :delete, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <% else %>
-        <%= link_to "中文", url_for(locale: :zh),  class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+        <%= link_to User.human_attribute_name(:login), login_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <% end %>
+    <div>
+        <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+    </div>
 </div>
 
 <div class='flex flex-col items-start px-40'>
     <div class='py-10 text-5xl'>
         <%=t('todo.title')%>
     </div>
-
-    <div class='bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500'>
-        <%= link_to t('todo.newTask'), new_task_path%>
-    </div>
+    
+    <%= link_to new_task_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
+        <%= t('todo.newTask')%>
+    <% end %>
 
     <div class='flex flex-row justify-between items-center w-full'>
-        <%= form_with url: root_path, method: :get, local: true do%>
+        <%= form_with url: tasks_path, method: :get, local: true do%>
             <div class='flex gap-3 my-5'>
                 <%= select_tag :sort, options_for_select(sort_options, session[:sort]), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 text-center border border-gray-500'%>
                 <%= select_tag :direction, options_for_select(direction_options, session[:direction]), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 text-center border border-gray-500'%>
-                <%= submit_tag t("todo.sort"), class: ''%>
+                <%= submit_tag t("todo.sort"), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 border border-gray-500'%>
             </div>
         <% end %>
         
-        <%= search_form_for @q, url: root_path, method: :get, local: true do |f| %>
+        <%= search_form_for @q, url: tasks_path, method: :get, local: true do |f| %>
             <div class='flex gap-3 my-5 items-center'>
                 <%= f.label :name_cont, Task.human_attribute_name(:name)%>
                 <%= f.text_field :name_cont, placeholder: t("todo.searchByName"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>

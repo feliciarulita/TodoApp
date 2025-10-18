@@ -14,6 +14,8 @@ zh:
     searchByStatus: 依狀態搜尋
     all: 全部
     search: 搜尋
+    welcome: 歡迎
+    language_switch: 中文
   
   notice:
     createSuccess: 任務建立成功
@@ -48,6 +50,14 @@ zh:
           high: 高
         asc: 升冪
         desc: 降冪
+      user:
+        name: 名稱
+        email: 郵件
+        password: 密碼
+        password_confirmation: 密碼確認
+        signUp: 註冊
+        login: 登入
+        logout: 登出
   
   helpers:
     submit:

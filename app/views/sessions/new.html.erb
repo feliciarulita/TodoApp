@@ -1,0 +1,22 @@
+<div class='absolute right-8'>
+    <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+</div>
+<%= form_with url: login_path do |f|%>
+  <div class='flex flex-col items-start px-50'>
+      <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full mt-20 py-10'>
+          <h1 class='text-center text-3xl'><%= t('todo.welcome')%></h1>
+          <div class='flex flex-col px-20 pt-15'>
+            <div class="flex field m-5 items-center justify-center">
+                <%= f.text_field :email, placeholder: User.human_attribute_name(:email), class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            </div>
+            <div class="flex field m-5 items-center justify-center">
+                <%= f.password_field :password, placeholder: User.human_attribute_name(:password) , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            </div>
+            <div class='flex flex-col items-center justify-center'>
+              <%= submit_tag User.human_attribute_name(:login), class: 'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'%>
+              <%= link_to User.human_attribute_name(:signUp), signup_path, class:'text-blue-500'%>
+            </div>
+          </div>
+      </div>
+  </div>
+<% end %>

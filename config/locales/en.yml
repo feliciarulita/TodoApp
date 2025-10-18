@@ -43,6 +43,8 @@ en:
     searchByStatus: Search by Status
     all: All
     search: Search
+    welcome: Welcome
+    language_switch: English
 
   notice:
     createSuccess: Task was successfully created.
@@ -77,6 +79,14 @@ en:
           high: High
         asc: Ascending
         desc: Descending
+      user:
+        name: Name
+        email: email
+        password: Password
+        password_confirmation: Password Confirmation
+        signUp: Sign Up
+        login: Login
+        logout: Logout
   
   helpers:
     submit:

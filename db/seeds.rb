@@ -12,5 +12,6 @@ User.create!(
   name: "Admin",
   email: "admin@example.com",
   password: "12345",
+  password_confirmation: "12345",
   manager: true
 )
