@@ -16,11 +16,21 @@ zh:
     search: 搜尋
     welcome: 歡迎
     language_switch: 中文
+    tasksList: 任務列表
+    adminTitle: 管理頁面
+    addUser: 新增用戶
+    editUser: 編輯用戶
+    deleteUser: 刪除用戶
+    updateUser: 更新用戶
   
   notice:
     createSuccess: 任務建立成功
     updateSuccess: 任務更新成功
     deleteSuccess: 任務刪除成功
+    adminRestriction: 管理員限制
+    createUserSuccess: 用戶建立成功
+    updateUserSuccess: 用戶更新成功
+    deleteUserSuccess: 用戶刪除成功
 
   errors:
     messages:
@@ -58,6 +68,11 @@ zh:
         signUp: 註冊
         login: 登入
         logout: 登出
+        role: 角色
+        create_time: 創建時間
+        task_num: 任務數量
+        admin: 管理員
+        user: 一般使用者
   
   helpers:
     submit:

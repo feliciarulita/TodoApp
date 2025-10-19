@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @q = current_user.tasks.ransack(params[:q])
+    @q = current_scope.ransack(params[:q])
 
     @tasks = @q.result
 

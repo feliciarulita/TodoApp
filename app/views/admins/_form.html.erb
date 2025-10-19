@@ -1,0 +1,58 @@
+<div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
+    <%= form_with model: user, url: user.persisted? ? admin_path(user) : admins_path do |f| %>
+        <% if user.errors.any? %>
+        <div class='fixed inset-0 flex items-center justify-center bg-black/40 z-[9999]'>
+            <div id="errors" class='flex flex-col bg-white justify-center items-center rounded-lg px-20 py-10 border border-black'>
+                <ul class='space-y-2 text-center'>
+                    <% user.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+                <div class='mt-10 text-center'>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class='bg-[#d9e9cf] rounded-lg px-5 py-2 border border-black'>OK</button>
+                </div>
+            </div>
+        </div>
+        <% end %>
+        <div class="field m-5">
+            <%= f.label :name %>
+            <%= f.text_field :name , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        </div>
+        <div class="field m-5">
+            <%= f.label :email %>
+            <%= f.text_field :email , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        </div>
+        <% if type=="create" %>
+            <div class="field m-5">
+                <%= f.label :password %>
+                <%= f.text_field :password , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+            </div>
+        <% end %>
+        <div class="field m-5">
+            <%= f.label :role %><br>
+
+            <%= f.radio_button :manager, true %>
+            <%= f.label :manager_true, "Admin" %><br>
+
+            <%= f.radio_button :manager, false %>
+            <%= f.label :manager_false, "General User" %><br>
+        </div>
+        <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
+            <% if type=="edit"%>
+                <%= link_to admin_path(user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                    <%= t('todo.back') %>
+                <% end %>
+                <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                    <%= f.submit "Edit User" %>
+                </div>
+            <% else %>
+                <%= link_to admins_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                    <%= t('todo.back') %>
+                 <% end %>
+                 <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                    <%= f.submit "Create User" %>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+</div>
