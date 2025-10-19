@@ -1,13 +1,13 @@
 class AdminsController < ApplicationController
   before_action :require_admin
-  before_action :set_users, only: [ :index, :show ]
+  before_action :set_users, only: [ :index, :show, :edit ]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @pagy, @users = pagy(@users, items: 7)
   end
 
   def show
-    @user = @users.find(params[:id])
     @tasks = @user.tasks
   end
 
@@ -16,7 +16,6 @@ class AdminsController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def create
@@ -30,7 +29,6 @@ class AdminsController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = t("notice.updateUserSuccess")
       redirect_to admin_path(@user)
@@ -40,7 +38,6 @@ class AdminsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = t("notice.deleteUserSuccess")
     redirect_to admins_path
@@ -61,5 +58,9 @@ class AdminsController < ApplicationController
 
   def set_users
     @users = User.left_joins(:tasks).select("users.*, COUNT(tasks.id) AS tasks_count").group("users.id")
+  end
+
+  def set_user
+    @user = @users.find(params[:id])
   end
 end

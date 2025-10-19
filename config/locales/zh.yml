@@ -19,6 +19,9 @@ zh:
     tasksList: 任務列表
     adminTitle: 管理頁面
     addUser: 新增用戶
+    editUser: 編輯用戶
+    deleteUser: 刪除用戶
+    updateUser: 更新用戶
   
   notice:
     createSuccess: 任務建立成功

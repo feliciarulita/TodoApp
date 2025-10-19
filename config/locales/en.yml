@@ -48,6 +48,9 @@ en:
     tasksList: My Task List
     adminTitle: Admin Page
     addUser: New User
+    editUser: Edit User
+    deleteUser: Delete User
+    updateUser: Update User
 
   notice:
     createSuccess: Task was successfully created.
