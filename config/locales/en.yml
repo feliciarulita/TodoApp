@@ -45,11 +45,18 @@ en:
     search: Search
     welcome: Welcome
     language_switch: English
+    tasksList: My Task List
+    adminTitle: Admin Page
+    addUser: New User
 
   notice:
     createSuccess: Task was successfully created.
     updateSuccess: Task was successfully updated.
     deleteSuccess: Task was successfully deleted.
+    adminRestriction: Admin only!
+    createUserSuccess: User was successfully created.
+    updateUserSuccess: User was successfully updated.
+    deleteUserSuccess: User was successfully deleted.
 
   errors:
     messages:
@@ -87,6 +94,11 @@ en:
         signUp: Sign Up
         login: Login
         logout: Logout
+        role: Role
+        create_time: Create time
+        task_num: Number of tasks
+        admin: Admin
+        user: User
   
   helpers:
     submit:

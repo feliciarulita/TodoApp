@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   allow_browser versions: :modern
   before_action :set_locale
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :admin?
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -24,5 +24,9 @@ class ApplicationController < ActionController::Base
 
   def require_login
     redirect_to login, alert: "Please log in first" unless logged_in?
+  end
+
+  def admin?
+    current_user&.manager?
   end
 end
