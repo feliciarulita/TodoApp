@@ -45,7 +45,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when updating a task" do
-    let!(:task) { create(:task, user: user) }
+    let(:task) { create(:task, user: user) }
 
     before do
       visit edit_task_path(I18n.locale, task)
@@ -60,7 +60,7 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when deleting a task" do
-    let!(:task) { create(:task, user: user) }
+    let(:task) { create(:task, user: user) }
 
     before do
       visit task_path(I18n.locale, task)

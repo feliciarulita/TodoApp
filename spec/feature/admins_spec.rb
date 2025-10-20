@@ -80,7 +80,7 @@ RSpec.describe "Admins", type: :system do
   end
 
   context "when updating a user" do
-    let!(:user) { create(:user) }
+    let(:user) { create(:user) }
 
     before do
       visit edit_admin_user_path(I18n.locale, user)
@@ -93,7 +93,7 @@ RSpec.describe "Admins", type: :system do
   end
 
   context "when updating a user, name is blank" do
-    let!(:user) { create(:user) }
+    let(:user) { create(:user) }
 
     before do
       visit edit_admin_user_path(I18n.locale, user)
