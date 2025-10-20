@@ -14,16 +14,16 @@ RSpec.describe "Admins", type: :system do
   end
 
   context "when login to admin, there is User Management button" do
-    it { is_expected.to have_content(I18n.t("todo.userManager")) }
+    it { is_expected.to have_content(I18n.t("todo.user_manager")) }
   end
 
   context "when visiting User Management page" do
     before do
-      click_link I18n.t("todo.userManager")
+      click_link I18n.t("todo.user_manager")
     end
 
-    it { is_expected.to have_content(I18n.t("todo.adminTitle")) }
-    it { is_expected.to have_content(I18n.t("todo.addUser")) }
+    it { is_expected.to have_content(I18n.t("todo.admin_title")) }
+    it { is_expected.to have_content(I18n.t("todo.add_user")) }
     it { is_expected.to have_selector("table.users-list") }
   end
 
@@ -33,10 +33,10 @@ RSpec.describe "Admins", type: :system do
       fill_in User.human_attribute_name(:name), with: "New User 1"
       fill_in User.human_attribute_name(:email), with: "newuser1@gmail.com"
       fill_in User.human_attribute_name(:password), with: "123"
-      click_button I18n.t("todo.addUser")
+      click_button I18n.t("todo.add_user")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.createUserSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.create_user_success")) }
     it { is_expected.to have_content("New User 1") }
   end
 
@@ -46,7 +46,7 @@ RSpec.describe "Admins", type: :system do
       fill_in User.human_attribute_name(:name), with: ""
       fill_in User.human_attribute_name(:email), with: "newuser1@gmail.com"
       fill_in User.human_attribute_name(:password), with: "123"
-      click_button I18n.t("todo.addUser")
+      click_button I18n.t("todo.add_user")
     end
 
     it { is_expected.to have_content("Name can't be blank") }
@@ -60,7 +60,7 @@ RSpec.describe "Admins", type: :system do
       fill_in User.human_attribute_name(:name), with: "New User"
       fill_in User.human_attribute_name(:email), with: user.email
       fill_in User.human_attribute_name(:password), with: "123"
-      click_button I18n.t("todo.addUser")
+      click_button I18n.t("todo.add_user")
     end
 
     it { is_expected.to have_content("email has already been taken") }
@@ -85,10 +85,10 @@ RSpec.describe "Admins", type: :system do
     before do
       visit edit_admin_path(I18n.locale, user)
       fill_in User.human_attribute_name(:name), with: "Update #{user.name}"
-      click_button I18n.t("todo.updateUser")
+      click_button I18n.t("todo.update_user")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.updateUserSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.update_user_success")) }
     it { is_expected.to have_content("Update #{user.name}") }
   end
 
@@ -98,7 +98,7 @@ RSpec.describe "Admins", type: :system do
     before do
       visit edit_admin_path(I18n.locale, user)
       fill_in User.human_attribute_name(:name), with: ""
-      click_button I18n.t("todo.updateUser")
+      click_button I18n.t("todo.update_user")
     end
 
     it { is_expected.to have_content("Name can't be blank") }
@@ -107,9 +107,9 @@ RSpec.describe "Admins", type: :system do
   context "when deleting the only admin" do
     before do
       visit admin_path(I18n.locale, admin)
-      click_button I18n.t("todo.deleteUser")
+      click_button I18n.t("todo.delete_user")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.deleteUserFail")) }
+    it { is_expected.to have_content(I18n.t("notice.delete_user_fail")) }
   end
 end

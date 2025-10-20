@@ -21,7 +21,7 @@ class AdminsController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:notice] = t("notice.createUserSuccess")
+      flash[:notice] = t("notice.create_user_success")
       redirect_to admins_path
     else
       render :new, status: :unprocessable_entity
@@ -30,7 +30,7 @@ class AdminsController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] = t("notice.updateUserSuccess")
+      flash[:notice] = t("notice.update_user_success")
       redirect_to admin_path(@user)
     else
       render :edit, status: :unprocessable_entity
@@ -39,12 +39,12 @@ class AdminsController < ApplicationController
 
   def destroy
     if !@user.destroy()
-      flash.now[:notice] = t("notice.deleteUserFail")
+      flash.now[:notice] = t("notice.delete_user_fail")
       @tasks = @user.tasks
       render :show, status: :unprocessable_entity
     else
       @user.destroy
-      flash[:notice] = t("notice.deleteUserSuccess")
+      flash[:notice] = t("notice.delete_user_success")
       redirect_to admins_path
     end
   end
@@ -53,7 +53,7 @@ class AdminsController < ApplicationController
 
   def require_admin
     unless current_user&.manager?
-      flash[:notice] = t("notice.adminRestriction")
+      flash[:notice] = t("notice.admin_restriction")
       redirect_to tasks_path
     end
   end

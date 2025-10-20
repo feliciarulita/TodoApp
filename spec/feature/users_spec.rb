@@ -17,7 +17,7 @@ RSpec.describe "Users", type: :system do
       click_button User.human_attribute_name(:signUp)
     end
 
-    it { is_expected.to have_content(I18n.t("notice.registrationSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.registration_success")) }
   end
 
   context "when sign up new user, name is blank" do
@@ -57,6 +57,6 @@ RSpec.describe "Users", type: :system do
       click_button User.human_attribute_name(:logout)
     end
 
-    it { is_expected.to have_content(I18n.t("notice.logoutSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.logout_success")) }
   end
 end

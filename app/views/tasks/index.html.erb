@@ -1,7 +1,7 @@
 <div class='flex flex-row justify-end items-center px-5 gap-5'>
     <p> <%= t('todo.welcome')%>, <%= current_user.name%> !</p>
     <% if admin? %>
-        <%= link_to t('todo.userManager'), admins_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+        <%= link_to t('todo.user_manager'), admins_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <% end %>
     <%= button_to User.human_attribute_name(:logout), logout_path, method: :delete, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <div>
@@ -15,7 +15,7 @@
     </div>
     
     <%= link_to new_task_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
-        <%= t('todo.newTask')%>
+        <%= t('todo.new_task')%>
     <% end %>
 
     <div class='flex flex-row justify-between items-center w-full'>
@@ -30,7 +30,7 @@
         <%= search_form_for @q, url: tasks_path, method: :get, local: true do |f| %>
             <div class='flex gap-3 my-5 items-center'>
                 <%= f.label :name_cont, Task.human_attribute_name(:name)%>
-                <%= f.text_field :name_cont, placeholder: t("todo.searchByName"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>
+                <%= f.text_field :name_cont, placeholder: t("todo.search_by_name"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>
                 <%= f.label :status_eq, Task.human_attribute_name(:status)%>
                 <%= f.select :status_eq, options_for_select(status_options), {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
                 <%= submit_tag t("todo.search"), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 border border-gray-500'%>
@@ -42,7 +42,7 @@
         <table class=' w-full rounded-lg text-center'>
             <thead>
                 <tr class='table w-full table-fixed'>
-                    <% [:name, :create_time, :end_time, :status, :priority, :tag].each do |attr| %>
+                    <% [:name, :create_time, :end_time, :status, :priority].each do |attr| %>
                         <th class='px-10 py-3'><%= Task.human_attribute_name(attr)%></th>
                     <% end %>
                 </tr>
@@ -56,7 +56,6 @@
                         <td class='px-10 py-3'><%= task.end_time.strftime("%Y-%m-%d") %></td>
                         <td class='px-10 py-3'><%= t(task.status, scope: %i[activerecord attributes task statuses]) %></td>
                         <td class='px-10 py-3'><%= t(task.priority, scope: %i[activerecord attributes task priorities]) %></td>
-                        <td class='px-10 py-3'><%= task.tag %></td>
                     </tr>
                 <% end %>
             </tbody>
