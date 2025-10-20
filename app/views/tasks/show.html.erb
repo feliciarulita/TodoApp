@@ -24,7 +24,7 @@
             <%= link_to edit_task_path(@task), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                 <%= t('todo.edit_task') %>
             <% end %>
-            <%= link_to (current_user.manager ? admin_path(current_user) : tasks_path ), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+            <%= link_to (current_user.manager ? admin_user_path(current_user) : tasks_path ), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                 <%= t('todo.back') %>
             <% end %>
             <%= button_to task_path(@task), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500', method: :delete do%>

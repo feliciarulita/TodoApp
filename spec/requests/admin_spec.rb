@@ -7,7 +7,7 @@ RSpec.describe "Admins", type: :request do
     before { sign_in_as(admin) }
 
     it "returns http success" do
-      get admins_path
+      get admin_users_path
 
       expect(response).to have_http_status(:success)
     end

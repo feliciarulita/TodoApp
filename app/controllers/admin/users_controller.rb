@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class Admin::UsersController < ApplicationController
   before_action :require_admin
   before_action :set_users, only: [ :index, :show, :edit, :update, :destroy ]
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
@@ -22,7 +22,7 @@ class AdminsController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = t("notice.create_user_success")
-      redirect_to admins_path
+      redirect_to admin_users_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class AdminsController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = t("notice.update_user_success")
-      redirect_to admin_path(@user)
+      redirect_to admin_user_path(@user)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class AdminsController < ApplicationController
     else
       @user.destroy
       flash[:notice] = t("notice.delete_user_success")
-      redirect_to admins_path
+      redirect_to admin_users_path
     end
   end
 

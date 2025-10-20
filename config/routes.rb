@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   scope "(:locale)", locale: /en|zh/ do
     resources :tasks
-    resources :admins
+    namespace :admin do
+      resources :users
+    end
+
     root "sessions#new"
 
     get "signup", to: "user_registrations#new"

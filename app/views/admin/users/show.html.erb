@@ -44,13 +44,13 @@
         </div>
         
         <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
-            <%= link_to edit_admin_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+            <%= link_to edit_admin_user_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                 <%= t('todo.edit_user') %>
             <% end %>
-            <%= link_to admins_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+            <%= link_to admin_users_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                 <%= t('todo.back') %>
             <% end %>
-            <%= button_to admin_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500', method: :delete do%>
+            <%= button_to admin_user_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500', method: :delete do%>
                 <%= t('todo.delete_user') %>
             <% end %>
         </div>

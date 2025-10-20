@@ -12,7 +12,7 @@
         <%=t('todo.admin_title')%>
     </div>
     
-    <%= link_to new_admin_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
+    <%= link_to new_admin_user_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
         <%= t('todo.add_user')%>
     <% end %>
 
@@ -28,7 +28,7 @@
             <tr class='border-t border-gray-500'></tr>
             <tbody class='block h-83 overflow-y-auto rounded-b-lg'>
                 <% @users.each do |user|%>
-                    <tr onclick="window.location = '<%= admin_path(user) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
+                    <tr onclick="window.location = '<%= admin_user_path(user) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
                         <td class='px-10 py-3'><%= user.name %></td>
                         <td class='px-10 py-3'><%= user.email %></td>
                         <% if user.manager %>
