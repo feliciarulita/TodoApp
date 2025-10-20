@@ -8,14 +8,14 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to tasks_path
     else
-      flash.now[:notice] = "Invalid email or password"
+      flash.now[:notice] = I18n.t("notice.invalidWhenCreate")
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     session.delete(:user_id)
-    flash.now[:notice] = "Logged out successfully!"
+    flash[:notice] = I18n.t("notice.logoutSuccess")
     redirect_to login_path
   end
 end

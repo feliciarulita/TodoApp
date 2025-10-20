@@ -47,10 +47,12 @@ en:
     language_switch: English
     tasksList: My Task List
     adminTitle: Admin Page
-    addUser: New User
+    newUser: New User
+    addUser: Create User
     editUser: Edit User
     deleteUser: Delete User
     updateUser: Update User
+    userManager: User Management
 
   notice:
     createSuccess: Task was successfully created.
@@ -60,12 +62,16 @@ en:
     createUserSuccess: User was successfully created.
     updateUserSuccess: User was successfully updated.
     deleteUserSuccess: User was successfully deleted.
+    deleteUserFail: Cannot delete this admin because there must be at least one admin remaining.
+    registrationSuccess: Registration successful!
+    invalidWhenCreate: Invalid email or password
+    logoutSuccess: Logged out successfully!
 
   errors:
     messages:
-      header: "Please correct the following errors:"
-      blank: "can't be blank"
-      greater_than: "must be after created time"
+      blank: can't be blank
+      greater_than: must be after created time
+      taken: has already been taken
 
   activerecord:
     models:

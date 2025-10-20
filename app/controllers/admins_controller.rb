@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   before_action :require_admin
-  before_action :set_users, only: [ :index, :show, :edit ]
+  before_action :set_users, only: [ :index, :show, :edit, :update, :destroy ]
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -38,9 +38,15 @@ class AdminsController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = t("notice.deleteUserSuccess")
-    redirect_to admins_path
+    if !@user.destroy()
+      flash.now[:notice] = t("notice.deleteUserFail")
+      @tasks = @user.tasks
+      render :show, status: :unprocessable_entity
+    else
+      @user.destroy
+      flash[:notice] = t("notice.deleteUserSuccess")
+      redirect_to admins_path
+    end
   end
 
   private

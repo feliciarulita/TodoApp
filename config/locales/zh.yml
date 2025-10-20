@@ -18,10 +18,12 @@ zh:
     language_switch: 中文
     tasksList: 任務列表
     adminTitle: 管理頁面
+    newUser: 新增用戶
     addUser: 新增用戶
     editUser: 編輯用戶
     deleteUser: 刪除用戶
     updateUser: 更新用戶
+    userManager: 使用者管理
   
   notice:
     createSuccess: 任務建立成功
@@ -31,12 +33,16 @@ zh:
     createUserSuccess: 用戶建立成功
     updateUserSuccess: 用戶更新成功
     deleteUserSuccess: 用戶刪除成功
+    deleteUserFail: 無法刪除此管理員，因為系統中至少必須保留一位管理員
+    registrationSuccess: 註冊成功
+    invalidWhenCreate: 郵箱或密碼無效
+    logoutSuccess: 退出成功 !
 
   errors:
     messages:
-      header: "以下欄位有誤，請修正："
-      blank: "不能為空"
-      greater_than: "結束時間必須晚於建立時間"
+      blank: 不能為空
+      greater_than: 結束時間必須晚於建立時間
+      taken: 已被使用
 
   activerecord:
     models:
