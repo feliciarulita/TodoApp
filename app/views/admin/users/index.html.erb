@@ -1,6 +1,6 @@
 <div class='flex flex-row justify-end items-center px-5 gap-5'>
     <p> <%= t('todo.welcome')%>, <%= current_user.name%> !</p>
-    <%= link_to t('todo.tasksList'), tasks_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
+    <%= link_to t('todo.tasks_list'), tasks_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <%= button_to User.human_attribute_name(:logout), logout_path, method: :delete, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
     <div>
         <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
@@ -9,15 +9,15 @@
 
 <div class='flex flex-col items-start px-40'>
     <div class='py-10 text-5xl'>
-        <%=t('todo.adminTitle')%>
+        <%=t('todo.admin_title')%>
     </div>
     
-    <%= link_to new_admin_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
-        <%= t('todo.addUser')%>
+    <%= link_to new_admin_user_path, class:'bg-[#d9e9cf] rounded-lg px-8 py-2 my-5 border border-gray-500' do %>
+        <%= t('todo.add_user')%>
     <% end %>
 
     <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full h-96'>
-        <table class=' w-full rounded-lg text-center'>
+        <table class='users-list w-full rounded-lg text-center'>
             <thead>
                 <tr class='table w-full table-fixed'>
                     <% [:name, :email, :role, :create_time, :task_num].each do |attr| %>
@@ -28,7 +28,7 @@
             <tr class='border-t border-gray-500'></tr>
             <tbody class='block h-83 overflow-y-auto rounded-b-lg'>
                 <% @users.each do |user|%>
-                    <tr onclick="window.location = '<%= admin_path(user) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
+                    <tr onclick="window.location = '<%= admin_user_path(user) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
                         <td class='px-10 py-3'><%= user.name %></td>
                         <td class='px-10 py-3'><%= user.email %></td>
                         <% if user.manager %>

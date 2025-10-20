@@ -1,5 +1,5 @@
 <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
-    <%= form_with model: user, url: user.persisted? ? admin_path(user) : admins_path do |f| %>
+    <%= form_with model: user, url: user.persisted? ? admin_user_path(user) :admin_users_path do |f| %>
         <% if user.errors.any? %>
         <div class='fixed inset-0 flex items-center justify-center bg-black/40 z-[9999]'>
             <div id="errors" class='flex flex-col bg-white justify-center items-center rounded-lg px-20 py-10 border border-black'>
@@ -39,18 +39,18 @@
         </div>
         <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
             <% if type=="edit"%>
-                <%= link_to admin_path(user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= link_to admin_user_path(user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                     <%= t('todo.back') %>
                 <% end %>
                 <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
-                    <%= f.submit "Edit User" %>
+                    <%= f.submit t('todo.update_user')%>
                 </div>
             <% else %>
-                <%= link_to admins_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= link_to admin_users_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
                     <%= t('todo.back') %>
                  <% end %>
                  <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
-                    <%= f.submit "Create User" %>
+                    <%= f.submit t('todo.add_user') %>
                 </div>
             <% end %>
         </div>

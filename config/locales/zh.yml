@@ -1,42 +1,48 @@
 zh:
   todo:
     title: 我的任務
-    newTask: 新增任務
-    addTask: 新增任務
-    editTask: 編輯任務
-    updateTask: 更新任務
-    deleteTask: 刪除任務
+    new_task: 新增任務
+    add_task: 新增任務
+    edit_task: 編輯任務
+    update_task: 更新任務
+    delete_task: 刪除任務
     detail: 任務詳情
     back: 返回
-    noTime: 未設定
+    no_time: 未設定
     sort: 排序
-    searchByName: 依名稱搜尋
-    searchByStatus: 依狀態搜尋
+    search_by_name: 依名稱搜尋
+    search_by_status: 依狀態搜尋
     all: 全部
     search: 搜尋
     welcome: 歡迎
     language_switch: 中文
-    tasksList: 任務列表
-    adminTitle: 管理頁面
-    addUser: 新增用戶
-    editUser: 編輯用戶
-    deleteUser: 刪除用戶
-    updateUser: 更新用戶
+    tasks_list: 任務列表
+    admin_title: 管理頁面
+    new_user: 新增用戶
+    add_user: 新增用戶
+    edit_user: 編輯用戶
+    delete_user: 刪除用戶
+    update_user: 更新用戶
+    user_manager: 使用者管理
   
   notice:
-    createSuccess: 任務建立成功
-    updateSuccess: 任務更新成功
-    deleteSuccess: 任務刪除成功
-    adminRestriction: 管理員限制
-    createUserSuccess: 用戶建立成功
-    updateUserSuccess: 用戶更新成功
-    deleteUserSuccess: 用戶刪除成功
+    create_success: 任務建立成功
+    update_success: 任務更新成功
+    delete_success: 任務刪除成功
+    admin_restriction: 管理員限制
+    create_user_success: 用戶建立成功
+    update_user_success: 用戶更新成功
+    delete_user_success: 用戶刪除成功
+    delete_user_fail: 無法刪除此管理員，因為系統中至少必須保留一位管理員
+    registration_success: 註冊成功
+    invalid_when_create: 郵箱或密碼無效
+    logout_success: 退出成功 !
 
   errors:
     messages:
-      header: "以下欄位有誤，請修正："
-      blank: "不能為空"
-      greater_than: "結束時間必須晚於建立時間"
+      blank: 不能為空
+      greater_than: 結束時間必須晚於建立時間
+      taken: 已被使用
 
   activerecord:
     models:
@@ -65,7 +71,7 @@ zh:
         email: 郵件
         password: 密碼
         password_confirmation: 密碼確認
-        signUp: 註冊
+        sign_up: 註冊
         login: 登入
         logout: 登出
         role: 角色

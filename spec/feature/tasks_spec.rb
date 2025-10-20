@@ -26,10 +26,10 @@ RSpec.describe "Tasks", type: :system do
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
       fill_in Task.human_attribute_name(:tag), with: "Work"
-      click_button I18n.t("todo.addTask")
+      click_button I18n.t("todo.add_task")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.createSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.create_success")) }
     it { is_expected.to have_content("Task 1") }
   end
 
@@ -45,29 +45,29 @@ RSpec.describe "Tasks", type: :system do
   end
 
   context "when updating a task" do
-    let!(:task) { create(:task, user: user) }
+    let(:task) { create(:task, user: user) }
 
     before do
       visit edit_task_path(I18n.locale, task)
       fill_in Task.human_attribute_name(:name), with: "Updated Task 3"
       select I18n.t("activerecord.attributes.task.statuses.in_progress"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      click_button I18n.t("todo.updateTask")
+      click_button I18n.t("todo.update_task")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.updateSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.update_success")) }
     it { is_expected.to have_content("Updated Task 3") }
   end
 
   context "when deleting a task" do
-    let!(:task) { create(:task, user: user) }
+    let(:task) { create(:task, user: user) }
 
     before do
       visit task_path(I18n.locale, task)
-      click_button I18n.t("todo.deleteTask")
+      click_button I18n.t("todo.delete_task")
     end
 
-    it { is_expected.to have_content(I18n.t("notice.deleteSuccess")) }
+    it { is_expected.to have_content(I18n.t("notice.delete_success")) }
     it { is_expected.not_to have_content(task.name) }
   end
 
@@ -208,7 +208,7 @@ RSpec.describe "Tasks", type: :system do
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
       fill_in Task.human_attribute_name(:tag), with: "Work"
-      click_button I18n.t("todo.addTask")
+      click_button I18n.t("todo.add_task")
     end
 
     it { is_expected.to have_content("#{Task.human_attribute_name(:name)} #{I18n.t('errors.messages.blank')}") }
@@ -223,7 +223,7 @@ RSpec.describe "Tasks", type: :system do
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
       fill_in Task.human_attribute_name(:tag), with: "Work"
-      click_button I18n.t("todo.addTask")
+      click_button I18n.t("todo.add_task")
     end
 
     it { is_expected.to have_content(I18n.t('errors.messages.greater_than')) }

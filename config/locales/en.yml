@@ -30,42 +30,48 @@
 en:
   todo:
     title: My Tasks
-    newTask: New Task
-    addTask: Create Task
-    editTask: Edit Task
-    updateTask: Update Task
-    deleteTask: Delete Task
+    new_task: New Task
+    add_task: Create Task
+    edit_task: Edit Task
+    update_task: Update Task
+    delete_task: Delete Task
     detail: Task Details
     back: Back
-    noTime: No Time
+    no_time: No Time
     sort: Sort
-    searchByName: Search by Name
-    searchByStatus: Search by Status
+    search_by_name: Search by Name
+    search_by_status: Search by Status
     all: All
     search: Search
     welcome: Welcome
     language_switch: English
-    tasksList: My Task List
-    adminTitle: Admin Page
-    addUser: New User
-    editUser: Edit User
-    deleteUser: Delete User
-    updateUser: Update User
+    tasks_list: My Task List
+    admin_title: Admin Page
+    new_user: New User
+    add_user: Create User
+    edit_user: Edit User
+    delete_user: Delete User
+    update_user: Update User
+    user_manager: User Management
 
   notice:
-    createSuccess: Task was successfully created.
-    updateSuccess: Task was successfully updated.
-    deleteSuccess: Task was successfully deleted.
-    adminRestriction: Admin only!
-    createUserSuccess: User was successfully created.
-    updateUserSuccess: User was successfully updated.
-    deleteUserSuccess: User was successfully deleted.
+    create_success: Task was successfully created.
+    update_success: Task was successfully updated.
+    delete_success: Task was successfully deleted.
+    admin_restriction: Admin only!
+    create_user_success: User was successfully created.
+    update_user_success: User was successfully updated.
+    delete_user_success: User was successfully deleted.
+    delete_user_fail: Cannot delete this admin because there must be at least one admin remaining.
+    registration_success: Registration successful!
+    invalid_when_create: Invalid email or password
+    logout_success: Logged out successfully!
 
   errors:
     messages:
-      header: "Please correct the following errors:"
-      blank: "can't be blank"
-      greater_than: "must be after created time"
+      blank: can't be blank
+      greater_than: must be after created time
+      taken: has already been taken
 
   activerecord:
     models:
@@ -94,7 +100,7 @@ en:
         email: email
         password: Password
         password_confirmation: Password Confirmation
-        signUp: Sign Up
+        signup: Sign Up
         login: Login
         logout: Logout
         role: Role
