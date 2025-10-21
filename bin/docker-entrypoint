@@ -6,9 +6,18 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
-# If running the rails server then create or migrate existing database
+# If running the rails server then create, migrate, and seed the database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
+  echo "Running database setup (migrate and seed)..."
+  
+  # Option 1: db:migrate followed by db:seed (Recommended)
+  # This ensures migrations run, followed by seeds. Safe for existing DBs.
+  ./bin/rails db:migrate
+  ./bin/rails db:seed
+  
+  # OR use db:setup if you prefer (Only safe if you are sure you want to load schema from scratch on first deploy)
+  # ./bin/rails db:setup  # db:setup = db:create, db:schema:load, db:seed
+  
 fi
 
-exec "${@}"
+exec "$@"

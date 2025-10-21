@@ -8,15 +8,16 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create!(
-  name: "Admin",
-  email: "admin@example.com",
-  password: "12345",
-  password_confirmation: "12345",
-  manager: true
-)
+User.find_or_create_by!(email: "admin@example.com") do |user|
+  user.name = "Admin"
+  user.password = "12345"
+  user.password_confirmation = "12345"
+  user.manager = true
+end
 
-Tag.create!(name: "Urgent")
-Tag.create!(name: "Work")
-Tag.create!(name: "School")
-Tag.create!(name: "Personal")
+tags = [ "Urgent", "Work", "School", "Personal" ]
+
+tags.each do |tag_name|
+  # Tag.find_or_create_by! checks for a tag with the matching name.
+  Tag.find_or_create_by!(name: tag_name)
+end
