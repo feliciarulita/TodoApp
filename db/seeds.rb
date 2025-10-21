@@ -15,3 +15,8 @@ User.create!(
   password_confirmation: "12345",
   manager: true
 )
+
+Tag.create!(name: "Urgent")
+Tag.create!(name: "Work")
+Tag.create!(name: "School")
+Tag.create!(name: "Personal")

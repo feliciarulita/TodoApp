@@ -4,9 +4,7 @@ class TasksController < ApplicationController
 
     @tasks = @q.result
 
-    if params[:tags].present?
-      @tasks = @tasks.with_tags(params[:tags])
-    end
+    @tasks = @tasks.with_tags(params[:tags])
 
     if params[:sort].present? && params[:direction].present?
       session[:sort] = params[:sort]
@@ -62,7 +60,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.expect(task: [ :name, :create_time, :end_time, :status, :priority, tags: [] ])
+    params.expect(task: [ :name, :create_time, :end_time, :status, :priority, tag_ids: [] ])
   end
 
   def current_scope
