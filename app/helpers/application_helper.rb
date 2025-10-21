@@ -25,8 +25,8 @@ module ApplicationHelper
   end
 
   def tag_options
-    [ "Urgent", "Work", "School", "Personal" ].map do |key|
-      [  I18n.t(key, scope: %i[activerecord attributes task tags]), key ]
+    Task.tags.map do |key, value|
+      [  I18n.t(key, scope: %i[activerecord attributes task tags]), key, value ]
     end
   end
 

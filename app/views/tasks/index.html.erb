@@ -35,10 +35,13 @@
                 <%= f.select :status_eq, options_for_select(status_options), {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
                 <%= f.label :tags_in, Task.human_attribute_name(:tag)%>
                 <div class="flex flex-col gap-1 bg-[#d9e9cf] rounded-lg px-5 py-3 border border-gray-500 w-fit">
-                    <% tag_options.each do |label, tag| %>
+                    <% Tag.all.each do |tag| %>
                         <div>
-                        <%= check_box_tag( "tags[]", tag, params[:tags]&.include?(tag), id: "task_tag_#{tag}", class: "accent-green-700" ) %>
-                        <%= label_tag "task_tag_#{tag}", label %>
+                            <%= check_box_tag "tags[]",
+                                            tag.id,
+                                            params[:tags]&.include?(tag.id),
+                                            id: "task_tag_#{tag.name}" %>
+                            <%= label_tag "task_tag_#{tag.name}", t(tag.name, scope: %i[activerecord attributes task tags]) %>
                         </div>
                     <% end %>
                 </div>
@@ -69,7 +72,7 @@
                             <div class='flex flex-col gap-1'>
                             <% task.tags.each do |tag| %>
                                 <div class='bg-[#ffd8a8] rounded-lg'>
-                                    <%= tag %>
+                                    <%= tag.name %>
                                 </div>
                             <% end %>
                             </div>
