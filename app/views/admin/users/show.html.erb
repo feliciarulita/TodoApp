@@ -24,7 +24,7 @@
                 <thead>
                     <tr class='table w-full table-fixed'>
                         <% [:name, :create_time, :end_time, :status, :priority, :tag].each do |attr| %>
-                            <th class='px-10 py-3'><%= User.human_attribute_name(attr)%></th>
+                            <th class='px-10 py-3'><%= Task.human_attribute_name(attr)%></th>
                         <% end %>
                     </tr>
                 </thead>
@@ -41,7 +41,7 @@
                                 <div class='flex flex-col gap-1'>
                                 <% task.tags.each do |tag| %>
                                     <div class='bg-[#ffd8a8] rounded-lg'>
-                                        <%= tag.name %>
+                                        <%= t(tag.name, scope: %i[activerecord attributes task tags]) %>
                                     </div>
                                 <% end %>
                                 </div>
