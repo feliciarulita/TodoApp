@@ -26,5 +26,7 @@ module TodoApp
     config.active_record.default_timezone = :local
     config.active_job.queue_adapter = :async
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.exceptions_app = self.routes
   end
 end

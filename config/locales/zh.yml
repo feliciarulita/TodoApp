@@ -43,6 +43,8 @@ zh:
       blank: 不能為空
       greater_than: 結束時間必須晚於建立時間
       taken: 已被使用
+    internal: 系統暫時無法處理您的請求，請稍後再試。
+    not_found: 抱歉，您所尋找的頁面不存在或已被移除。
 
   activerecord:
     models:
