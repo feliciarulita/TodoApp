@@ -24,6 +24,12 @@ module ApplicationHelper
     end
   end
 
+  def tag_options
+    [ "Urgent", "Work", "School", "Personal" ].map do |key|
+      [  I18n.t(key, scope: %i[activerecord attributes task tags]), key ]
+    end
+  end
+
   def status_options_key
     Task.statuses.map do |key, value|
       [ I18n.t(key, scope: %i[activerecord attributes task statuses]), key ]

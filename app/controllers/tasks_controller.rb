@@ -4,6 +4,10 @@ class TasksController < ApplicationController
 
     @tasks = @q.result
 
+    if params[:tags].present?
+      @tasks = @tasks.with_tags(params[:tags])
+    end
+
     if params[:sort].present? && params[:direction].present?
       session[:sort] = params[:sort]
       session[:direction] = params[:direction]
@@ -13,7 +17,11 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_scope.find(params[:id])
+    if current_user.manager
+      @task = Task.find(params[:id])
+    else
+      @task = current_scope.find(params[:id])
+    end
   end
 
   def new
@@ -54,7 +62,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.expect(task: [ :name, :create_time, :end_time, :status, :priority, :tag ])
+    params.expect(task: [ :name, :create_time, :end_time, :status, :priority, tags: [] ])
   end
 
   def current_scope
