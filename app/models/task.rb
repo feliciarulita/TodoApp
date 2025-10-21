@@ -1,6 +1,9 @@
 class Task < ApplicationRecord
   belongs_to :user
 
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
   enum :status, { pending: 0, in_progress: 1, completed: 2 }
   enum :priority, { high: 2, medium: 1, low: 0 }
 
@@ -20,7 +23,16 @@ class Task < ApplicationRecord
     order(column => direction)
   }
 
+  scope :with_tags, ->(tag_ids) {
+    if tag_ids.present?
+      joins(:tags).where(tags: { id: tag_ids }).distinct
+    else
+      all
+    end
+  }
+
+
   def self.ransackable_attributes(auth_object = nil)
-    %w[name status create_time end_time id]
+    %w[name status create_time end_time id tags]
   end
 end

@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_17_054254) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_053854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["task_id"], name: "index_taggings_on_task_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name", limit: 100, null: false
@@ -20,7 +35,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_054254) do
     t.datetime "end_time"
     t.integer "status", default: 0, null: false
     t.integer "priority", default: 0, null: false
-    t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -42,5 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_054254) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "tasks"
   add_foreign_key "tasks", "users"
 end

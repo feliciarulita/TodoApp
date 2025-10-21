@@ -18,7 +18,7 @@
         <%= t('todo.new_task')%>
     <% end %>
 
-    <div class='flex flex-row justify-between items-center w-full'>
+    <div class='flex flex-col justify-between items-start w-full'>
         <%= form_with url: tasks_path, method: :get, local: true do%>
             <div class='flex gap-3 my-5'>
                 <%= select_tag :sort, options_for_select(sort_options, session[:sort]), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 text-center border border-gray-500'%>
@@ -33,6 +33,18 @@
                 <%= f.text_field :name_cont, placeholder: t("todo.search_by_name"), class: 'bg-white rounded-lg px-4 py-2 border border-black'%>
                 <%= f.label :status_eq, Task.human_attribute_name(:status)%>
                 <%= f.select :status_eq, options_for_select(status_options), {include_blank: t("todo.all")}, class: 'bg-[#d9e9cf] rounded-lg px-5 py-2 text-center border border-gray-500'%>
+                <%= f.label :tags_in, Task.human_attribute_name(:tag)%>
+                <div class="flex flex-col gap-1 bg-[#d9e9cf] rounded-lg px-5 py-3 border border-gray-500 w-fit">
+                    <% Tag.all.each do |tag| %>
+                        <div>
+                            <%= check_box_tag "tags[]",
+                                            tag.id,
+                                            params[:tags]&.include?(tag.id),
+                                            id: "task_tag_#{tag.name}" %>
+                            <%= label_tag "task_tag_#{tag.name}", t(tag.name, scope: %i[activerecord attributes task tags]) %>
+                        </div>
+                    <% end %>
+                </div>
                 <%= submit_tag t("todo.search"), class: 'bg-[#d9e9cf] rounded-lg px-8 py-2 border border-gray-500'%>
             </div>
         <% end %>
@@ -42,7 +54,7 @@
         <table class=' w-full rounded-lg text-center'>
             <thead>
                 <tr class='table w-full table-fixed'>
-                    <% [:name, :create_time, :end_time, :status, :priority].each do |attr| %>
+                    <% [:name, :create_time, :end_time, :status, :priority, :tag].each do |attr| %>
                         <th class='px-10 py-3'><%= Task.human_attribute_name(attr)%></th>
                     <% end %>
                 </tr>
@@ -56,6 +68,15 @@
                         <td class='px-10 py-3'><%= task.end_time.strftime("%Y-%m-%d") %></td>
                         <td class='px-10 py-3'><%= t(task.status, scope: %i[activerecord attributes task statuses]) %></td>
                         <td class='px-10 py-3'><%= t(task.priority, scope: %i[activerecord attributes task priorities]) %></td>
+                        <td class='px-10 py-3'>
+                            <div class='flex flex-col gap-1'>
+                            <% task.tags.each do |tag| %>
+                                <div class='bg-[#ffd8a8] rounded-lg'>
+                                    <%= tag.name %>
+                                </div>
+                            <% end %>
+                            </div>
+                        </td>
                     </tr>
                 <% end %>
             </tbody>
