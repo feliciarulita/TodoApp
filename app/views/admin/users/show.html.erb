@@ -19,7 +19,7 @@
         <div class='m-5'><%= User.human_attribute_name(:role) %> :  <%= @user.manager ? "Admin" : "User" %></div>
         <div class='m-5'><%= User.human_attribute_name(:task_num) %> : <%= @user.tasks_count %></div>
 
-        <div class='rounded-lg bg-[#f0f0f0] border border-gray-500 w-full h-96'>
+        <div class='rounded-lg bg-[#f0f0f0] border border-gray-500 w-full'>
             <table class=' w-full rounded-lg text-center'>
                 <thead>
                     <tr class='table w-full table-fixed'>
@@ -41,7 +41,7 @@
                                 <div class='flex flex-col gap-1'>
                                 <% task.tags.each do |tag| %>
                                     <div class='bg-[#ffd8a8] rounded-lg'>
-                                        <%= tag %>
+                                        <%= tag.name %>
                                     </div>
                                 <% end %>
                                 </div>
