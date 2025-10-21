@@ -46,8 +46,9 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN ./bin/rails tailwindcss:build && \
-    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+
+
 
 
 # Final stage for app image
