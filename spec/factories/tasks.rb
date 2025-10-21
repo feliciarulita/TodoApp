@@ -5,7 +5,7 @@ FactoryBot.define do
     end_time { 2.days.from_now }
     status { Task.statuses.keys.sample }
     priority { Task.priorities.keys.sample }
-    tag { Faker::Lorem.word }
+    tags { [ "Urgent", "Work", "School", "Personal" ].sample }
   end
 
   trait :later_create_time do

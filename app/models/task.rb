@@ -20,7 +20,15 @@ class Task < ApplicationRecord
     order(column => direction)
   }
 
+  scope :with_tags, ->(tags) {
+    if tags.present?
+      array_literal = "{" + tags.map { |t| "\"#{t}\"" }.join(",") + "}"
+      where("tags && ?", array_literal)
+    end
+  }
+
+
   def self.ransackable_attributes(auth_object = nil)
-    %w[name status create_time end_time id]
+    %w[name status create_time end_time id tags]
   end
 end

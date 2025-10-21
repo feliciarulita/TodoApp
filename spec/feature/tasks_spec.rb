@@ -25,7 +25,7 @@ RSpec.describe "Tasks", type: :system do
       fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in Task.human_attribute_name(:tag), with: "Work"
+      check "Work"
       click_button I18n.t("todo.add_task")
     end
 
@@ -207,7 +207,7 @@ RSpec.describe "Tasks", type: :system do
       fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in Task.human_attribute_name(:tag), with: "Work"
+      check "Work"
       click_button I18n.t("todo.add_task")
     end
 
@@ -222,7 +222,7 @@ RSpec.describe "Tasks", type: :system do
       fill_in Task.human_attribute_name(:end_time), with: "2025-10-01T18:00"
       select I18n.t("activerecord.attributes.task.statuses.pending"), from: "Status"
       select I18n.t("activerecord.attributes.task.priorities.high"), from: "Priority"
-      fill_in Task.human_attribute_name(:tag), with: "Work"
+      check "Work"
       click_button I18n.t("todo.add_task")
     end
 
@@ -239,5 +239,29 @@ RSpec.describe "Tasks", type: :system do
     end
 
     it { is_expected.to have_content(task.name) }
+  end
+
+  context "when searching for tasks by tags" do
+    let!(:task) { create(:task, user: user, tags: [ "Work" ]) }
+
+    before do
+      visit tasks_path
+      check "Work"
+      click_button I18n.t("todo.search")
+    end
+
+    it { is_expected.to have_content(task.name) }
+  end
+
+  context "when searching for tasks by tags found none" do
+    let!(:task) { create(:task, user: user, tags: [ "Work" ]) }
+
+    before do
+      visit tasks_path
+      check "Urgent"
+      click_button I18n.t("todo.search")
+    end
+
+    it { is_expected.not_to have_content(task.name) }
   end
 end

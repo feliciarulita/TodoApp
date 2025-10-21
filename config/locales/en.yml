@@ -83,7 +83,7 @@ en:
         end_time: End Time
         status: Status
         priority: Priority
-        tag: Tag
+        tag: Tags
         id : ID
         statuses:
           pending: Pending
@@ -93,6 +93,11 @@ en:
           low: Low
           medium: Medium
           high: High
+        tags:
+          Urgent: Urgent
+          Work: Work
+          School: School
+          Personal: Personal
         asc: Ascending
         desc: Descending
       user:
