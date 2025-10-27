@@ -11,26 +11,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "tailwindcss";
-
-.pagy.nav {
-    @apply flex gap-4;
- }
-
-.pagy.nav .current{
-    @apply text-[#96a78d];
-}
-
-.field_with_errors{
-    @apply contents;
-}
-
-.field_with_errors .field_border{
-    @apply border border-red-500 focus:border-red-500 focus:ring-red-500;
-}
-
-.field_border{
-    @apply border border-black focus:border-blue-500 focus:ring-blue-500;
-}
-
-

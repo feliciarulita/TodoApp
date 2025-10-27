@@ -37,6 +37,7 @@
         <div class="field m-5">
             <%= f.label :tag %>
             <div class="flex flex-col gap-2 mt-2 mx-5">
+            <%= hidden_field_tag "task[tag_ids][]", "" %>
             <% Tag.all.each do |tag| %>
                 <div>
                     <%= check_box_tag "task[tag_ids][]",
