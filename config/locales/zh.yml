@@ -25,6 +25,12 @@ zh:
     delete_user: 刪除用戶
     update_user: 更新用戶
     user_manager: 使用者管理
+    previous: 上一頁
+    next: 下一頁
+    tasks_list: 我的任務列表
+    users_list: 使用者列表
+    admin: 管理員
+    user: 一般使用者
   
   notice:
     create_success: 任務建立成功

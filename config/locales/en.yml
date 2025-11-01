@@ -54,6 +54,12 @@ en:
     delete_user: Delete User
     update_user: Update User
     user_manager: User Management
+    previous: Previous
+    next: Next
+    tasks_list: Task List
+    users_list: Users List
+    admin: Admin
+    user: General User
 
   notice:
     create_success: Task was successfully created.

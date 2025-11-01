@@ -63,7 +63,7 @@
                             <div class='flex flex-col gap-1'>
                             <% task.tags.each do |tag| %>
                                 <div class='bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300'>
-                                    <%= tag.name %>
+                                    <%= t(tag.name, scope: %i[activerecord attributes task tags]) %>
                                 </div>
                             <% end %>
                             </div>
