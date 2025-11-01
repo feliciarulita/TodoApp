@@ -1,67 +1,71 @@
-<div class='flex flex-row justify-end items-center px-5 gap-5'>
-    <% if logged_in? %>
-        <p> <%= t('todo.welcome')%>, <%= current_user.name%> !</p>
-        <%= button_to User.human_attribute_name(:logout), logout_path, method: :delete, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    <% else %>
-        <%= link_to User.human_attribute_name(:login), login_path, class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    <% end %>
-    <div>
-        <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    </div>
+<%= render "headerMain" %>
+<div class='px-40 mt-10 mb-5'>
+    <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        <li class="inline-flex items-center">
+        <a href="<%= admin_users_path %>" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+            <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+            </svg>
+            Users List
+        </a>
+        </li>
+        <li aria-current="page">
+        <div class="flex items-center">
+            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"><%= @user.name%></span>
+        </div>
+        </li>
+    </ol>
+    </nav>
 </div>
 <div class='flex flex-col items-start px-40'>
-    <div class='py-10 text-5xl'>
-        <%= @user.name %>
-    </div>
+    <div class='flex flex-col items-center mt-10 w-full'>
+        <div class='p-10 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 w-full'>
+            <div class='m-5 text-xl tracking-tight text-gray-900 dark:text-white'><%= User.human_attribute_name(:name) %> :  <%= @user.name %></div>
+            <div class='m-5 text-xl tracking-tight text-gray-900 dark:text-white'><%= User.human_attribute_name(:email) %> :  <%= @user.email %></div>
+            <div class='m-5 text-xl tracking-tight text-gray-900 dark:text-white'><%= User.human_attribute_name(:role) %> :  <%= @user.manager ? "Admin" : "User" %></div>
+            <div class='m-5 text-xl tracking-tight text-gray-900 dark:text-white'><%= User.human_attribute_name(:task_num) %> : <%= @user.tasks_count %></div>
 
-    <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
-        <div class='m-5'><%= User.human_attribute_name(:email) %> :  <%= @user.email %></div>
-        <div class='m-5'><%= User.human_attribute_name(:role) %> :  <%= @user.manager ? "Admin" : "User" %></div>
-        <div class='m-5'><%= User.human_attribute_name(:task_num) %> : <%= @user.tasks_count %></div>
-
-        <div class='rounded-lg bg-[#f0f0f0] border border-gray-500 w-full'>
-            <table class=' w-full rounded-lg text-center'>
-                <thead>
-                    <tr class='table w-full table-fixed'>
-                        <% [:name, :create_time, :end_time, :status, :priority, :tag].each do |attr| %>
-                            <th class='px-10 py-3'><%= User.human_attribute_name(attr)%></th>
-                        <% end %>
-                    </tr>
-                </thead>
-                <tr class='border-t border-gray-500'></tr>
-                <tbody class='block h-83 overflow-y-auto rounded-b-lg'>
-                    <% @tasks.each do |task|%>
-                        <tr onclick="window.location = '<%= task_path(task) %>'" class='table w-full table-fixed bg-[#f0f0f0] hover:bg-[#ced4da]'>
-                            <td class='px-10 py-3'><%= task.name %></td>
-                            <td class='px-10 py-3'><%= task.create_time.strftime("%Y-%m-%d") %></td>
-                            <td class='px-10 py-3'><%= task.end_time.strftime("%Y-%m-%d") %></td>
-                            <td class='px-10 py-3'><%= task.status.humanize %></td>
-                            <td class='px-10 py-3'><%= task.priority.humanize %></td>
-                            <td class='px-10 py-3'>
-                                <div class='flex flex-col gap-1'>
-                                <% task.tags.each do |tag| %>
-                                    <div class='bg-[#ffd8a8] rounded-lg'>
-                                        <%= tag.name %>
-                                    </div>
-                                <% end %>
-                                </div>
-                            </td>
-                        </tr>
+            <div class='grid grid-cols-3 rounded-lg bg-gray-200 dark:bg-gray-600 shadow shadow-lg w-full p-5 gap-5 h-96 overflow-auto'>
+                <% if @tasks.any? %>
+                    <% @tasks.each do |task| %>
+                        <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                            <a href="<%= task_path(task) %>">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= task.name %></h5>
+                            </a>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= Task.human_attribute_name(:create_time) %>: <%= task.create_time.strftime("%Y-%m-%d") %></p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= Task.human_attribute_name(:end_time) %>: <%= task.end_time.strftime("%Y-%m-%d") %></p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= Task.human_attribute_name(:status) %>: <%= task.status.humanize %></p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= Task.human_attribute_name(:priority) %>: <%= task.priority.humanize %></p>
+                            <a href="<%= task_path(task) %>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Details
+                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                </svg>
+                            </a>
+                        </div>
                     <% end %>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
-            <%= link_to edit_admin_user_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
-                <%= t('todo.edit_user') %>
-            <% end %>
-            <%= link_to admin_users_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
-                <%= t('todo.back') %>
-            <% end %>
-            <%= button_to admin_user_path(@user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500', method: :delete do%>
-                <%= t('todo.delete_user') %>
-            <% end %>
+                <% else %>
+                <div class='flex col-start-2 w-full h-full justify-center items-center'>
+                    <p class='text-xl'> <%= t('todo.no_tasks') %> </p>
+                </div>
+                <% end %>
+            </div>
+            
+            <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
+                <%= link_to edit_admin_user_path(@user), class:'button' do%>
+                    <%= t('todo.edit_user') %>
+                <% end %>
+                <%= link_to admin_users_path, class:'button' do%>
+                    <%= t('todo.back') %>
+                <% end %>
+                <%= button_to admin_user_path(@user), class:'button', method: :delete do%>
+                    <%= t('todo.delete_user') %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

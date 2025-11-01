@@ -38,6 +38,7 @@ en:
     detail: Task Details
     back: Back
     no_time: No Time
+    no_tasks: No tasks available.
     sort: Sort
     search_by_name: Search by Name
     search_by_status: Search by Status

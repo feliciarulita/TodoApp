@@ -9,6 +9,7 @@ zh:
     detail: 任務詳情
     back: 返回
     no_time: 未設定
+    no_tasks: 尚無任務
     sort: 排序
     search_by_name: 依名稱搜尋
     search_by_status: 依狀態搜尋

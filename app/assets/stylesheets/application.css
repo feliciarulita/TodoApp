@@ -12,6 +12,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "tailwindcss";
+@import "flowbite/src/themes/default";
 
 .pagy.nav {
     @apply flex gap-4;

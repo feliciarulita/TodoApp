@@ -1,11 +1,7 @@
-<div class='flex flex-row justify-end items-center px-5 gap-5'>
-    <div>
-        <%= link_to t('todo.language_switch'), url_for(locale: I18n.locale == :zh ? :en : :zh), class: 'inline-block px-8 py-2 bg-[#96a78d] text-white rounded-lg border border-black'%>
-    </div>
-</div>
+<%= render "header" %>
 <%= form_with model: @user, url: signup_path do |f|%>
-  <div class='flex flex-col items-start px-50'>
-      <div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full mt-20 py-10'>
+  <div class='flex flex-col justify-center items-center px-50 py-10'>
+      <div class='p-10 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 w-full'>
           <h1 class='text-center text-3xl'><%= t('todo.welcome')%></h1>
           <% if @user.errors.any? %>
             <ul class="text-red-500 text-center">
@@ -15,21 +11,35 @@
             </ul>
           <% end %>
           <div class='flex flex-col px-20 pt-15'>
-            <div class="flex field m-5 items-center justify-center">
-                <%= f.text_field :name, placeholder: User.human_attribute_name(:name), class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            <label for="website-admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+            <div class="flex">
+              <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 mb-5">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                </svg>
+              </span>
+              <%= f.text_field :name, placeholder: User.human_attribute_name(:name), class:"rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 mb-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder:"elonmusk"%>
             </div>
-            <div class="flex field m-5 items-center justify-center">
-                <%= f.text_field :email, placeholder: User.human_attribute_name(:email), class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+            <div class="relative mb-6">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>                  </svg>
+              </div>
+              <%= f.text_field :email, placeholder: User.human_attribute_name(:email), class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'%>
             </div>
-            <div class="flex field m-5 items-center justify-center">
-                <%= f.password_field :password, placeholder: User.human_attribute_name(:password) , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <div class="relative mb-6">
+              <%= f.password_field :password, placeholder: User.human_attribute_name(:password), class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder:"•••••••••"%>
             </div>
-            <div class="flex field m-5 items-center justify-center">
-                <%= f.password_field :password_confirmation, placeholder: User.human_attribute_name(:password_confirmation) , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20 w-full h-15'%>
+            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <div class="relative mb-6">
+              <%= f.password_field :password_confirmation, placeholder: User.human_attribute_name(:password_confirmation), class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', placeholder:"•••••••••"%>
             </div>
             <div class='flex flex-col items-center justify-center'>
-              <%= submit_tag User.human_attribute_name(:signUp), class: 'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500'%>
-              <%= link_to User.human_attribute_name(:login), login_path, class:'text-blue-500'%>
+              <%= submit_tag User.human_attribute_name(:signUp), class: 'button'%>
+              <%= link_to User.human_attribute_name(:login), login_path, class:'text-blue-500 text-sm font-medium py-5'%>
             </div>
           </div>
       </div>

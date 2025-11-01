@@ -1,55 +1,61 @@
-<div class='rounded-lg bg-[#d9e9cf] border border-gray-500 w-full p-10 text-xl'>
+<div class='p-10 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 w-full'>
     <%= form_with model: user, url: user.persisted? ? admin_user_path(user) :admin_users_path do |f| %>
         <% if user.errors.any? %>
-        <div class='fixed inset-0 flex items-center justify-center bg-black/40 z-[9999]'>
-            <div id="errors" class='flex flex-col bg-white justify-center items-center rounded-lg px-20 py-10 border border-black'>
-                <ul class='space-y-2 text-center'>
+        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400" role="alert">
+            <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Danger</span>
+            <div>
+                <span class="font-medium">Ensure that these requirements are met:</span>
+                <ul class="mt-1.5 list-disc list-inside">
                     <% user.errors.full_messages.each do |message| %>
                         <li><%= message %></li>
                     <% end %>
                 </ul>
-                <div class='mt-10 text-center'>
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class='bg-[#d9e9cf] rounded-lg px-5 py-2 border border-black'>OK</button>
-                </div>
             </div>
         </div>
         <% end %>
-        <div class="field m-5">
-            <%= f.label :name %>
-            <%= f.text_field :name , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        <div class="my-5">
+            <%= f.label :name, class:'label' %>
+            <%= f.text_field :name , class: 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-900 dark:text-white', placeholder: "User name"%>
         </div>
-        <div class="field m-5">
-            <%= f.label :email %>
-            <%= f.text_field :email , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+        <div class="my-5">
+            <%= f.label :email, class:'label' %>
+            <%= f.text_field :email , class: 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-900 dark:text-white', placeholder: "xxxx@gmail.com"%>
         </div>
         <% if type=="create" %>
-            <div class="field m-5">
-                <%= f.label :password %>
-                <%= f.text_field :password , class: 'bg-white rounded-lg px-4 py-2 field_border mx-20'%>
+            <div class="my-5">
+                <%= f.label :password, class:'label' %>
+                <%= f.text_field :password , class: 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-gray-900 dark:text-white'%>
             </div>
         <% end %>
-        <div class="field m-5">
-            <%= f.label :role %><br>
-
-            <%= f.radio_button :manager, true %>
-            <%= f.label :manager_true, "Admin" %><br>
-
-            <%= f.radio_button :manager, false %>
-            <%= f.label :manager_false, "General User" %><br>
+        <div class="my-5">
+            <%= f.label :role, class:'label' %>
+            <div class="grid grid-cols-2 gap-4 mt-2 mx-5">
+                <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <%= f.radio_button :manager, true, class:'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+                    <%= f.label :manager_true, "Admin", class:'w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300' %><br>
+                </div>
+                <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <%= f.radio_button :manager, false, class:'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+                    <%= f.label :manager_false, "General User", class: 'w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300' %><br>
+                </div>
+            </div>
         </div>
         <div class='flex flex-row mt-40 gap-4 justify-end w-full'>
             <% if type=="edit"%>
-                <%= link_to admin_user_path(user), class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= link_to admin_user_path(user), class:'button' do%>
                     <%= t('todo.back') %>
                 <% end %>
-                <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                <div class="submit button">
                     <%= f.submit t('todo.update_user')%>
                 </div>
             <% else %>
-                <%= link_to admin_users_path, class:'bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500' do%>
+                <%= link_to admin_users_path, class:'button' do%>
                     <%= t('todo.back') %>
                  <% end %>
-                 <div class="submit bg-[#f0f0f0] rounded-lg px-8 py-2 my-5 border border-gray-500">
+                 <div class="submit button">
                     <%= f.submit t('todo.add_user') %>
                 </div>
             <% end %>
